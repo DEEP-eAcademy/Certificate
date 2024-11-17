@@ -49,6 +49,10 @@ Before image path you need to add this parameter:
 ```
 $P{[[CERT_TEMPLATE_PATH]]} + PATH
 ```
+### Generate QR code
+```
+javax.imageio.ImageIO.read(new java.io.ByteArrayInputStream(Base64.getDecoder().decode($P{[[DIGITAL_SIGNATURE_QR_CODE]]})))
+```
 
 ## Custom verification
 
