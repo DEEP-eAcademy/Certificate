@@ -1,8 +1,5 @@
 # Certificate
 
-This is fork of an OpenSource project created by fluxlabs ag, CH-Burgdorf ([https://fluxlabs.ch](https://fluxlabs.ch))
-
-## About
 The certificate plugin offers an enhanced support for creating and administrating certificates inside ILIAS.
 
 ![001](doc/images/certificate_plugin_preview.jpg)
@@ -17,16 +14,20 @@ The certificate plugin offers an enhanced support for creating and administratin
 * Revision of files
 * Rendering PDF certificates with the integraded PDF Service in ILIAS (>= 4.4) or with JasperReports
 
+### Requirements
+* ILIAS 8
+* PHP 7.0 - 7.4
+
 ## Installation
 Start at your ILIAS root directory
 ```bash
 mkdir -p Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
 cd Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
-git clone https://github.com/Jakub-eAcademy/ILIAS-Certificate-plugin.git Certificate
+git clone https://github.com/Jakub-eAcademy/Certificate.git Certificate
 ```
 Update and activate the plugin in the ILIAS Plugin Administration
 
-Please also install and enable [CertificateCron](https://github.com/Jakub-eAcademy/CertificateCron).
+Please also install and enable [CertificateCron](https://github.com/studer-raimann/CertificateCron).
 
 ## Documentation
 
@@ -74,7 +75,3 @@ Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/cl
    at de.cenote.jasperstarter.App.processReport(App.java:178),
    at de.cenote.jasperstarter.App.main(App.java:109)
    ```
-
-### Requirements
-* ILIAS 7 or ILIAS 8
-* PHP >=7.0
