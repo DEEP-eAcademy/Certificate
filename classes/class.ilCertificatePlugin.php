@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-use ILIAS\GlobalScreen\Scope\MainMenu\Provider\AbstractStaticPluginMainMenuProvider;
 use srag\DIC\Certificate\DICTrait;
 use srag\Plugins\Certificate\Menu\Menu;
+use ILIAS\GlobalScreen\Provider\PluginProviderCollection;
 /**
  * Certificate Plugin
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
@@ -12,6 +12,13 @@ use srag\Plugins\Certificate\Menu\Menu;
 class ilCertificatePlugin extends ilUserInterfaceHookPlugin
 {
     use DICTrait;
+
+    const CTYPE = "Services";
+    /** @var string */
+    const CNAME = "UIComponent";
+    /** @var string */
+    const SLOT_ID = "uihk";
+
     const PLUGIN_ID = 'cert';
     const PLUGIN_NAME = 'Certificate';
     /**
@@ -52,21 +59,34 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin
     /**
      * @var ilDB
      */
-    protected $db;
+    protected ilDBInterface $db;
 
     /**
      * @return ilCertificatePlugin
      */
     public static function getInstance()
     {
-        if (is_null(static::$instance)) {
-            static::$instance = new static();
+	global $DIC;
+        if (self::$instance instanceof self) {
+            return self::$instance;
         }
 
-        return static::$instance;
+	 /** @var ilComponentRepository $component_repository */
+        $component_repository = $DIC['component.repository'];
+        /** @var ilComponentFactory $component_factory */
+        $component_factory = $DIC['component.factory'];
+
+        $plugin_info = $component_repository->getComponentByTypeAndName(
+            self::CTYPE,
+            self::CNAME
+        )->getPluginSlotById(self::SLOT_ID)->getPluginByName(self::PLUGIN_NAME);
+
+        self::$instance = $component_factory->getPlugin($plugin_info->getId());
+
+        return self::$instance;
     }
 
-    protected function init()
+    protected function init():void
     {
         parent::init();
         if (isset($_GET['ulx'])) {
@@ -77,19 +97,23 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin
     /**
      * @return string
      */
-    public function getPluginName()
+    public function getPluginName():string
     {
         return self::PLUGIN_NAME;
     }
 
-    public function __construct()
+    public function __construct(ilDBInterface $db,
+        ilComponentRepositoryWrite $component_repository,
+        string $id)
     {
-        parent::__construct();
+        parent::__construct($db, $component_repository, $id);
         global $DIC;
 
         $this->ilPluginAdmin = $DIC["ilPluginAdmin"];
         $this->tree = $DIC->repositoryTree();
-        $this->db = $DIC->database();
+        if(isset($DIC['global_screen'])){
+            $this->provider_collection->setMainBarProvider(new Menu(self::dic()->dic(), $this));
+        }
     }
 
     /**
@@ -159,11 +183,11 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin
      * Don't activate plugin if preconditions are not given
      * @return bool
      */
-    protected function beforeUpdate()
+    protected function beforeUpdate():bool
     {
+        global $tpl;
         if (!$this->checkPreConditions()) {
-            ilUtil::sendFailure("Please uninstall and remove legacy 'CertificateEvents' plugin from server, because it is incompatible / give conflict - It's now integrated in 'Certificate' plugin", true);
-
+            $tpl->setOnScreenMessage( 'failure', "Please uninstall and remove legacy 'CertificateEvents' plugin from server, because it is incompatible / give conflict - It's now integrated in 'Certificate' plugin", true);
             return false;
         }
 
@@ -181,7 +205,7 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin
     /**
      * @return bool
      */
-    protected function beforeUninstall()
+    protected function beforeUninstall():bool
     {
         $this->db->dropTable(ilCertificateConfig::TABLE_NAME, false);
         $this->db->dropTable(srCertificateType::TABLE_NAME, false);
@@ -195,10 +219,11 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin
         $this->db->dropTable(srCertificateCustomDefinitionSetting::TABLE_NAME, false);
         $this->db->dropTable(srCertificateCustomTypeSetting::TABLE_NAME, false);
 
-        ilUtil::delDir(CLIENT_DATA_DIR . '/cert_signatures');
-        ilUtil::delDir(CLIENT_DATA_DIR . '/cert_templates');
-        ilUtil::delDir(CLIENT_DATA_DIR . '/cert_data');
-        ilUtil::delDir(CLIENT_DATA_DIR . '/cert_keys');
+
+        ilFileUtils::delDir(CLIENT_DATA_DIR . '/cert_signatures');
+        ilFileUtils::delDir(CLIENT_DATA_DIR . '/cert_templates');
+        ilFileUtils::delDir(CLIENT_DATA_DIR . '/cert_data');
+        ilFileUtils::delDir(CLIENT_DATA_DIR . '/cert_keys');
 
         return true;
     }
@@ -233,12 +258,9 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin
         }
     }
 
-
-    /**
-     * @inheritDoc
-     */
-    public function promoteGlobalScreenProvider() : AbstractStaticPluginMainMenuProvider
+    public function getPrefix(): string
     {
-        return new Menu(self::dic()->dic(), $this);
+        $lh = $this->getLanguageHandler();
+        return $lh->getPrefix();
     }
 }

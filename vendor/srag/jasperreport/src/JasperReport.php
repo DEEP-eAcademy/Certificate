@@ -3,7 +3,7 @@
 namespace srag\JasperReport\Certificate;
 
 use Exception;
-use ilUtil;
+use ilFileUtils;
 use srag\DIC\Certificate\DICTrait;
 
 /**
@@ -128,8 +128,8 @@ class JasperReport {
 	 *
 	 */
 	protected function makeTempDir()/*: void*/ {
-		$tmpdir = ilUtil::ilTempnam();
-		ilUtil::makeDir($tmpdir);
+		$tmpdir = ilFileUtils::ilTempnam();
+		ilFileUtils::makeDir($tmpdir);
 		$this->setTmpdir($tmpdir);
 	}
 
@@ -167,7 +167,7 @@ class JasperReport {
 	 * Delete temp directory
 	 */
 	public function __destruct() {
-		ilUtil::delDir($this->getTmpdir());
+		ilFileUtils::delDir($this->getTmpdir());
 	}
 
 
@@ -239,7 +239,7 @@ class JasperReport {
 		$exit_after = true)/*: void*/ {
 		$output_file = $this->generateOutput();
 
-		ilUtil::deliverFile($output_file . '.pdf', basename($output_file . '.pdf'), '', true, true, $exit_after);
+		ilFileDelivery::deliverFileLegacy($output_file . '.pdf', basename($output_file . '.pdf'), '', true, true, $exit_after);
 	}
 
 

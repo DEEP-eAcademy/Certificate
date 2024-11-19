@@ -23,7 +23,7 @@ class srCertificateDefinitionPlaceholdersFormGUI extends ilPropertyFormGUI
     /**
      * @var ilTemplate
      */
-    protected $tpl;
+    protected ilTemplate $tpl;
     /**
      * @var ilCertificatePlugin
      */
@@ -31,7 +31,7 @@ class srCertificateDefinitionPlaceholdersFormGUI extends ilPropertyFormGUI
     /**
      * @var ilCtrl
      */
-    protected $ctrl;
+    protected ilCtrl $ctrl;
     /**
      * @var
      */
@@ -39,7 +39,7 @@ class srCertificateDefinitionPlaceholdersFormGUI extends ilPropertyFormGUI
     /**
      * @var ilObjUser
      */
-    protected $user;
+    protected ?ilObjUser $user;
 
     /**
      * @param                         $parent_gui
@@ -51,7 +51,7 @@ class srCertificateDefinitionPlaceholdersFormGUI extends ilPropertyFormGUI
         global $DIC;
         $this->parent_gui = $parent_gui;
         $this->definition = $definition;
-        $this->tpl = $DIC->ui()->mainTemplate();
+        $this->global_tpl = $DIC->ui()->mainTemplate();
         $this->ctrl = $DIC->ctrl();
         $this->pl = ilCertificatePlugin::getInstance();
         $this->user = $DIC->user();

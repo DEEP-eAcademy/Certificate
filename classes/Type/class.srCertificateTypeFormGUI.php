@@ -19,7 +19,7 @@ class srCertificateTypeFormGUI extends ilPropertyFormGUI
     /**
      * @var ilTemplate
      */
-    protected $tpl;
+    protected ilTemplate $tpl;
     /**
      * @var ilCertificatePlugin
      */
@@ -27,11 +27,11 @@ class srCertificateTypeFormGUI extends ilPropertyFormGUI
     /**
      * @var ilLanguage
      */
-    protected $lng;
+    protected ilLanguage $lng;
     /**
      * @var ilCtrl
      */
-    protected $ctrl;
+    protected ilCtrl $ctrl;
     /**
      * @var ilRbacReview
      */
@@ -55,7 +55,7 @@ class srCertificateTypeFormGUI extends ilPropertyFormGUI
         parent::__construct();
         $this->parent_gui = $parent_gui;
         $this->type = $type;
-        $this->tpl = $DIC->ui()->mainTemplate();
+        $this->global_tpl = $DIC->ui()->mainTemplate();
         $this->ctrl = $DIC->ctrl();
         $this->rbac = $DIC->rbac()->review();
         $this->pl = ilCertificatePlugin::getInstance();

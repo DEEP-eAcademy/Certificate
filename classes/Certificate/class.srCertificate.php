@@ -32,7 +32,7 @@ class srCertificate extends ActiveRecord
     /**
      * @return string
      */
-    public function getConnectorContainerName()
+    public function getConnectorContainerName():string
     {
         return self::TABLE_NAME;
     }
@@ -41,7 +41,7 @@ class srCertificate extends ActiveRecord
      * @return string
      * @deprecated
      */
-    public static function returnDbTableName()
+    public static function returnDbTableName():string
     {
         return self::TABLE_NAME;
     }
@@ -227,7 +227,7 @@ class srCertificate extends ActiveRecord
      * If there exists already a certificate for the given definition and user, the version is increased
      * @throws Exception
      */
-    public function create()
+    public function create():void
     {
         if (is_null($this->getDefinition()) || !$this->getUserId()) {
             throw new Exception("srCertificate::create() must have valid Definition and User-ID");
@@ -361,7 +361,7 @@ class srCertificate extends ActiveRecord
         if (!is_file($file)) {
             $this->log->write("srCertificate::download(): Trying to download certificate but file is missing $file");
         }
-        ilUtil::deliverFile($file, $this->getFilename(), 'application/pdf');
+        ilFileDelivery::deliverFileLegacy($file, $this->getFilename(), 'application/pdf');
     }
 
 
@@ -422,10 +422,10 @@ class srCertificate extends ActiveRecord
         if (count($cert_ids)) {
             $zip_filename = date('d-m-Y') . '-' . $filename;
             // Make a random temp dir in ilias data directory
-            $tmp_dir = ilUtil::ilTempnam();
-            ilUtil::makeDir($tmp_dir);
+            $tmp_dir = ilFileUtils::ilTempnam();
+            ilFileUtils::makeDir($tmp_dir);
             $zip_base_dir = $tmp_dir . DIRECTORY_SEPARATOR . $zip_filename;
-            ilUtil::makeDir($zip_base_dir);
+            ilFileUtils::makeDir($zip_base_dir);
             // Copy all PDFs in folder
             foreach ($cert_ids as $cert_id) {
                 /** @var srCertificate $cert */
@@ -436,12 +436,12 @@ class srCertificate extends ActiveRecord
             }
             $tmp_zip_file = $tmp_dir . DIRECTORY_SEPARATOR . $zip_filename . '.zip';
             try {
-                ilUtil::zip($zip_base_dir, $tmp_zip_file);
-                rename($tmp_zip_file, $zip_file = ilUtil::ilTempnam());
-                ilUtil::delDir($tmp_dir);
-                ilUtil::deliverFile($zip_file, $zip_filename . '.zip', '', false, true);
+                ilFileUtils::zip($zip_base_dir, $tmp_zip_file);
+                rename($tmp_zip_file, $zip_file = ilFileUtils::ilTempnam());
+                ilFileUtils::delDir($tmp_dir);
+                ilFileDelivery::deliverFileLegacy($zip_file, $zip_filename . '.zip', '', false, true);
             } catch (ilFileException $e) {
-                ilUtil::sendInfo($e->getMessage());
+                $tpl->setOnScreenMessage( 'info', $e->getMessage(), true);
             }
         }
     }

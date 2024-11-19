@@ -41,7 +41,7 @@ class srCertificatePreview extends srCertificate
         throw new srCertificateException("Can't update CertificatePreview object because it exists only temporary");
     }
 
-    public function create()
+    public function create():void
     {
         throw new srCertificateException("Can't create CertificatePreview object because it exists only temporary");
     }
@@ -85,7 +85,7 @@ class srCertificatePreview extends srCertificate
      */
     public function download($exit_after = true)
     {
-        ilUtil::deliverFile($this->getFilePath(), self::PREVIEW_FILENAME, '', '', true, $exit_after);
+        ilFileDelivery::deliverFileLegacy($this->getFilePath(), self::PREVIEW_FILENAME, '', '', true, $exit_after);
     }
 
     /**
@@ -93,7 +93,7 @@ class srCertificatePreview extends srCertificate
      */
     public function __destruct()
     {
-        ilUtil::delDir($this->temp_dir);
+        ilFileUtils::delDir($this->temp_dir);
     }
 
     /**
@@ -103,8 +103,8 @@ class srCertificatePreview extends srCertificate
     public function getCertificatePath()
     {
         if (!$this->temp_dir) {
-            $tmpdir = ilUtil::ilTempnam();
-            ilUtil::makeDir($tmpdir);
+            $tmpdir = ilFileUtils::ilTempnam();
+            ilFileUtils::makeDir($tmpdir);
             $this->temp_dir = $tmpdir;
         }
 

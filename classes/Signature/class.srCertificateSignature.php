@@ -98,7 +98,7 @@ class srCertificateSignature extends ActiveRecord
 
     public function download()
     {
-        ilUtil::deliverFile($this->getFilePath(true),
+        ilFileDelivery::deliverFileLegacy($this->getFilePath(true),
             'signature_' . $this->getLastName() . '_' . $this->getFirstName() . '.' . $this->getSuffix());
     }
 
@@ -129,7 +129,7 @@ class srCertificateSignature extends ActiveRecord
         if ($file_data['name'] && !$file_data['error']) {
             $file_path = $this->getFilePath(false);
             if (!is_dir($file_path)) {
-                ilUtil::makeDirParents($file_path);
+                ilFileUtils::makeDirParents($file_path);
             }
             $suffix = pathinfo($file_data['name'], PATHINFO_EXTENSION);
             $this->setSuffix($suffix);
@@ -146,7 +146,7 @@ class srCertificateSignature extends ActiveRecord
      * @return string
      * @description Return the Name of your Database Table
      */
-    static function returnDbTableName()
+    static function returnDbTableName():string
     {
         return self::TABLE_NAME;
     }

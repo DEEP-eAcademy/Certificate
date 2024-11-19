@@ -18,7 +18,7 @@ class srCertificateDefinitionFormGUI extends ilPropertyFormGUI
     /**
      * @var ilTemplate
      */
-    protected $tpl;
+    protected ilTemplate $tpl;
     /**
      * @var ilCertificatePlugin
      */
@@ -26,7 +26,7 @@ class srCertificateDefinitionFormGUI extends ilPropertyFormGUI
     /**
      * @var ilCtrl
      */
-    protected $ctrl;
+    protected ilCtrl $ctrl;
     /**
      * @var bool
      */
@@ -42,7 +42,7 @@ class srCertificateDefinitionFormGUI extends ilPropertyFormGUI
     /**
      * @var ilObjUser
      */
-    protected $user;
+    protected ?ilObjUser $user;
 
     /**
      * @param                         $parent_gui
@@ -54,7 +54,7 @@ class srCertificateDefinitionFormGUI extends ilPropertyFormGUI
         parent::__construct();
         $this->parent_gui = $parent_gui;
         $this->definition = $definition;
-        $this->tpl = $DIC->ui()->mainTemplate();
+        $this->global_tpl = $DIC->ui()->mainTemplate();
         $this->ctrl = $DIC->ctrl();
         $this->pl = ilCertificatePlugin::getInstance();
         $this->isNew = ($this->definition->getId()) ? false : true;
@@ -131,7 +131,7 @@ class srCertificateDefinitionFormGUI extends ilPropertyFormGUI
         $n_types = count($type->getOptions());
         if ($this->isNew) {
             if (!$n_types) {
-                ilUtil::sendInfo($this->pl->txt('msg_no_types_available'));
+                $this->global_tpl->setOnScreenMessage($this->global_tpl::MESSAGE_TYPE_INFO, $this->pl->txt('msg_no_types_available'));
             } else {
                 $this->setTitle($title);
                 $this->addItem($type);
@@ -246,7 +246,7 @@ class srCertificateDefinitionFormGUI extends ilPropertyFormGUI
                     break;
                 case srCertificateTypeSetting::IDENTIFIER_SUCCESSOR_COURSE:
                     $input = new ilRepositorySelector2InputGUI($this->pl->txt("setting_id_{$identifier}"), $identifier,
-                        false, get_class($this));
+                        false, $this);
                     $input->setInfo($this->pl->txt("setting_id_{$identifier}_info"));
                     $input->getExplorerGUI()->setClickableTypes(['crs']);
                     $input->getExplorerGUI()->setSelectableTypes(['crs']);
@@ -367,7 +367,7 @@ class srCertificateDefinitionFormGUI extends ilPropertyFormGUI
             $options[$type->getId()] = $type->getTitle();
         }
         if (count($invalid) && $this->isNew) {
-            ilUtil::sendInfo(sprintf($this->pl->txt('msg_info_invalid_cert_types'), implode(', ', $invalid)));
+            $this->global_tpl->setOnScreenMessage($this->global_tpl::MESSAGE_TYPE_INFO, sprintf($this->pl->txt('msg_info_invalid_cert_types'), implode(', ', $invalid)));
         }
         $item = new ilSelectInputGUI($this->pl->txt('setting_id_type'), 'type_id');
         asort($options);

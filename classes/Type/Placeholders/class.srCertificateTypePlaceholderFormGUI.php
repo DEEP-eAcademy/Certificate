@@ -11,7 +11,7 @@ class srCertificateTypePlaceholderFormGUI extends ilPropertyFormGUI
     /**
      * @var ilTemplate
      */
-    protected $tpl;
+    protected ilTemplate $tpl;
     /**
      * @var ilCertificatePlugin
      */
@@ -19,11 +19,11 @@ class srCertificateTypePlaceholderFormGUI extends ilPropertyFormGUI
     /**
      * @var ilLanguage
      */
-    protected $lng;
+    protected ilLanguage $lng;
     /**
      * @var ilCtrl
      */
-    protected $ctrl;
+    protected ilCtrl $ctrl;
     /**
      * @var ilRbacReview
      */
@@ -35,7 +35,7 @@ class srCertificateTypePlaceholderFormGUI extends ilPropertyFormGUI
     /**
      * @var ilObjUser
      */
-    protected $user;
+    protected ?ilObjUser $user;
     /**
      * @var srCertificatePlaceholder
      */
@@ -51,7 +51,7 @@ class srCertificateTypePlaceholderFormGUI extends ilPropertyFormGUI
         parent::__construct();
         $this->parent_gui = $parent_gui;
         $this->placeholder = $placeholder;
-        $this->tpl = $DIC->ui()->mainTemplate();
+        $this->global_tpl = $DIC->ui()->mainTemplate();
         $this->ctrl = $DIC->ctrl();
         $this->rbac = $DIC->rbac()->review();
         $this->pl = ilCertificatePlugin::getInstance();
@@ -119,7 +119,8 @@ class srCertificateTypePlaceholderFormGUI extends ilPropertyFormGUI
                 $this->placeholder->setDefaultValue($this->getInput("default_value_{$lang_code}"), $lang_code);
             }
         } catch (ilException $e) {
-            ilUtil::sendFailure($e->getMessage());
+            global $tpl;
+            $tpl->setOnScreenMessage( 'failure', $e->getMessage(), true);
 
             return false;
         }

@@ -10,7 +10,7 @@ class srCertificateCustomTypeSettingFormGUI extends ilPropertyFormGUI
     /**
      * @var ilTemplate
      */
-    protected $tpl;
+    protected ilTemplate $tpl;
     /**
      * @var ilCertificatePlugin
      */
@@ -18,11 +18,11 @@ class srCertificateCustomTypeSettingFormGUI extends ilPropertyFormGUI
     /**
      * @var ilLanguage
      */
-    protected $lng;
+    protected ilLanguage $lng;
     /**
      * @var ilCtrl
      */
-    protected $ctrl;
+    protected ilCtrl $ctrl;
     /**
      * @var
      */
@@ -34,7 +34,7 @@ class srCertificateCustomTypeSettingFormGUI extends ilPropertyFormGUI
     /**
      * @var ilObjUser
      */
-    protected $user;
+    protected ?ilObjUser $user;
     /**
      * @var srCertificateCustomTypeSetting
      */
@@ -49,7 +49,7 @@ class srCertificateCustomTypeSettingFormGUI extends ilPropertyFormGUI
         global $DIC;
         parent::__construct();
         $this->parent_gui = $parent_gui;
-        $this->tpl = $DIC->ui()->mainTemplate();
+        $this->global_tpl = $DIC->ui()->mainTemplate();
         $this->ctrl = $DIC->ctrl();
         $this->lng = $DIC->language();
         $this->rbac = $DIC->rbac()->review();
@@ -97,7 +97,8 @@ class srCertificateCustomTypeSettingFormGUI extends ilPropertyFormGUI
                 }
             }
         } catch (ilException $e) {
-            ilUtil::sendFailure($e->getMessage());
+            global $tpl;
+            $tpl->setOnScreenMessage( 'failure', $e->getMessage(), true);
 
             return false;
         }

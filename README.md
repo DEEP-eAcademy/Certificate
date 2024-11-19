@@ -15,8 +15,8 @@ The certificate plugin offers an enhanced support for creating and administratin
 * Rendering PDF certificates with the integraded PDF Service in ILIAS (>= 4.4) or with JasperReports
 
 ### Requirements
-* ILIAS 6 or ILIAS 7
-* PHP >=7.0
+* ILIAS 8
+* PHP 7.0 - 7.4
 
 ## Installation
 Start at your ILIAS root directory
