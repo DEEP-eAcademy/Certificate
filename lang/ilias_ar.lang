@@ -1,0 +1,308 @@
+msg_default_language_must_be_set#:#يجب تعيين اللغة الافتراضية.
+decrypt_failed#:#تعذّر فك تشفير قيمة التوقيع.
+signature#:#التوقيع
+signature_file#:#ملف التوقيع
+signature_file_info#:#قم بتحميل صورة تمثل التوقيع هنا.
+signatures#:#التواقيع
+signature_check#:#تحقق من توقيع الشهادة
+signatures_confirm_delete#:#هل أنت متأكد أنك تريد متابعة حذف التوقيع التالي؟
+last_name#:#الاسم العائلي
+first_name#:#الاسم الأول
+add_new_signature#:#إضافة توقيع جديد
+edit_signature#:#تعديل التوقيع
+decrypt_successful#:#تم فك التشفير بنجاح.
+in_process#:#قيد المعالجة
+general#:#عام
+template#:#القالب
+certificate_placeholders#:#المتغيرات النصية للشهادة
+save#:#حفظ
+cancel#:#إلغاء
+confirm#:#تأكيد
+always#:#دائمًا
+placeholders#:#المتغيرات النصية
+custom_placeholders#:#متغيرات نصية مخصّصة
+back_to_overview#:#العودة إلى نظرة عامة
+manage_cert_types#:#إدارة أنواع الشهادات
+administrate_certificates#:#إدارة الشهادات
+my_certificates#:#شهاداتي
+save_preview#:#حفظ ومعاينة
+preview_certificate#:#معاينة الشهادة
+preview_participation_certificate#:#معاينة شهادة المشاركة
+certificate#:#الشهادة
+back_to_course#:#العودة إلى الدورة
+callback_email_subject#:#استدعاء الشهادة
+callback_email_message#:#تم استدعاء الشهادة التالية ولم تعد متاحة:\n\nمعرّف الشهادة: [[CERT_ID]]\nاسم المستخدم: [[USER_LOGIN]]\nاسم المستخدم الكامل: [[USER_FULLNAME]]\nاسم الملف: [[CERT_FILE_NAME]]\nإصدار الملف: [[CERT_FILE_VERSION]]
+status#:#الحالة
+waiting#:#في الانتظار
+created#:#تم الإنشاء
+called_back#:#تم الاستدعاء
+creation_failed#:#فشل الإنشاء
+being_processed#:#قيد المعالجة
+undo_callback#:#إلغاء الاستدعاء
+retry#:#إعادة المحاولة
+download#:#تنزيل
+call_back#:#استدعاء
+current_type#:#النوع الحالي:
+txt_use_placeholders#:#يمكن استخدام المتغيرات النصية التالية (فقط في محتوى الرسائل وموضوعها)
+cert_status_0#:#في الانتظار
+cert_status_1#:#في الانتظار
+cert_status_2#:#قيد المعالجة
+cert_status_3#:#تم الإنشاء
+cert_status_4#:#فشل الإنشاء
+cert_status_5#:#تم الاستدعاء
+writeperm_failed_subject#:#الشهادة: فشل إنشاء الشهادة بسبب نقص صلاحيات الكتابة
+writeperm_failed_message#:#فشل إنشاء الشهادة بسبب نقص صلاحيات الكتابة في المجلد المستهدف:\n\nالمجلد المستهدف:[[TARGET_DIR]]\nمعرّف الشهادة: [[CERT_ID]]\nاسم المستخدم: [[USER_LOGIN]]\nالاسم الكامل للمستخدم: [[USER_FULLNAME]]\nاسم الملف: [[CERT_FILE_NAME]]\nإصدار الملف: [[CERT_FILE_VERSION]]
+cert_failed_subject#:#فشل إنشاء الشهادة
+cert_failed_message#:#فشل إنشاء الشهادة:\n\nالمجلد المستهدف: [[TARGET_DIR]]\nمعرّف الشهادة: [[CERT_ID]]\nاسم المستخدم: [[USER_LOGIN]]\nاسم المستخدم الكامل: [[USER_FULLNAME]]\nاسم الملف: [[CERT_FILE_NAME]]\nإصدار الملف: [[CERT_FILE_VERSION]]
+no_space_left_subject#:#الشهادة: فشل إنشاء الشهادة بسبب نفاد مساحة التخزين
+no_space_left_message#:#فشل إنشاء الشهادة بسبب نفاد مساحة التخزين في دليل بيانات الشهادة:\n\nالمجلد المستهدف: [[TARGET_DIR]]\nمعرّف الشهادة: [[CERT_ID]]\nاسم المستخدم: [[USER_LOGIN]]\nاسم المستخدم الكامل: [[USER_FULLNAME]]\nاسم الملف: [[CERT_FILE_NAME]]\nإصدار الملف: [[CERT_FILE_VERSION]]
+disk_space_warning_mail_subject#:#الشهادة: تحذير مساحة التخزين
+disk_space_warning_mail_message#:#بعد إنشاء الشهادة الأخيرة، انخفضت مساحة التخزين الحرة في دليل بيانات الشهادات إلى قيمة حرجة. يمكنك تعديل هذه القيمة من إعدادات الشهادة.\n\nالمساحة الحرة المتبقية: %s بايت
+msg_info_invalid_cert_types#:#بعض أنواع الشهادات غير قابلة للاختيار لأن ملف القالب الخاص بها مفقود: %s
+msg_info_current_type_no_invalid_tempalte#:#نوع الشهادة الحالي لا يحتوي على ملف قالب صالح، لن يتم إنشاء الشهادات
+valid_from#:#صالح اعتبارًا من
+valid_to#:#صالح حتى
+unlimited#:#غير محدود
+lastname#:#الاسم العائلي
+firstname#:#الاسم الأول
+file_version#:#إصدار الملف
+actions#:#الإجراءات
+cert_id#:#معرّف الشهادة
+id#:#معرّف الشهادة
+cert_type#:#نوع الشهادة
+type#:#نوع الشهادة
+only_newest_version#:#عرض أحدث إصدار فقط
+crs_title#:#عنوان الدورة
+download_zip#:#تنزيل بصيغة ZIP
+msg_no_permission_certificates#:#لا تملك صلاحية لعرض الشهادات.
+msg_definition_created#:#تم إنشاء التعريف بنجاح.
+msg_definition_updated#:#تم تحديث التعريف بنجاح.
+msg_placeholders_updated#:#تم تحديث المتغيرات النصية بنجاح.
+msg_type_updated#:#تم تغيير نوع الشهادة.
+msg_no_types_available#:#لا توجد أنواع شهادات متاحة.
+msg_reserved_identifier#:#المعرّف '%s' محجوز لمتغير نصي قياسي موجود.
+msg_identifier_not_valid#:#المعرّف '%s' غير صالح.
+msg_reset_validity#:#تمت إعادة تعيين القيمة الافتراضية لإعداد الصلاحية.
+msg_type_saved#:#تم حفظ النوع.
+msg_signature_saved#:#تم حفظ التوقيع.
+msg_delete_signature_success#:#تم حذف التوقيع بنجاح.
+msg_setting_saved#:#تم حفظ الإعداد.
+msg_placeholder_saved#:#تم حفظ المتغير النصي المخصّص.
+msg_placeholder_format_info#:#داخل القالب، أحِط معرّفات المتغيرات النصية بالرمزين "%s" "%s".
+msg_no_permission#:#رفض الوصول.
+msg_save_config#:#تم حفظ الإعدادات.
+msg_no_placeholders#:#لا توجد متغيرات نصية معرّفة لنوع الشهادة المحدد.
+msg_called_back#:#تم استدعاء الشهادة.
+msg_undo_called_back#:#لم تعد الشهادة مُستدعاة.
+msg_not_created_yet#:#لم يتم إنشاء الشهادة بعد.
+msg_retry_generation#:#سيحاول النظام إعادة إنشاء الشهادة.
+msg_error_preview_certificate#:#حدث خطأ أثناء محاولة معاينة الشهادة.
+msg_cert_created#:#سيتم إنشاء الشهادات بالتاريخ المختار.
+msg_type_copied#:#تم نسخ نوع الشهادة بنجاح.
+msg_type_copied_info#:#تحذير: لا يتم نسخ إعدادات "القالب" الخاصة بنوع الشهادة.
+msg_cronjob_success#:#تم تنفيذ مهمة Cron بنجاح.
+change_cert_type#:#تغيير نوع الشهادة
+choose_cert_type#:#اختر نوع الشهادة
+edit_settings#:#تحرير الإعدادات
+setting_id_type#:#نوع الشهادة
+setting_id_type_info_new#:#بعد اختيار النوع، ستتوفر إعدادات إضافية.
+setting_id_type_info_change#:#تحذير: عند تغيير النوع، سيتم حذف الإعدادات والمتغيرات النصية الحالية.
+setting_id_generation#:#الإنشاء
+setting_id_validity#:#الصلاحية
+setting_id_validity_type#:#نوع الصلاحية
+setting_id_default_lang#:#اللغة الافتراضية
+setting_id_default_lang_info#:#تُنشأ الشهادة بهذه اللغة إذا لم تتطابق لغة المستخدم مع إحدى اللغات المعرّفة لنوع الشهادة.
+setting_id_downloadable#:#إتاحة تنزيل الشهادة
+setting_id_downloadable_info#:#إذا تم التحديد، يمكن للمستخدم تنزيل الشهادة.
+setting_id_scorm_timing#:#تمكين توقيت SCORM
+setting_id_scorm_timing_info#:#يُفعّل حسابًا بديلاً لـ "الثواني المستغرَقة" لوحدات SCORM 2004.
+setting_id_successor_course#:#الدورة اللاحقة
+setting_id_successor_course_info#:#عند انتهاء صلاحية الشهادة، سيتم تسجيل المستخدم تلقائيًا في الدورة اللاحقة.
+setting_id_predecessor_courses#:#الدورات السابقة
+setting_id_predecessor_courses_info#:#لتهيئة دورة سابقة، عرّف هذه الدورة كـ دورة لاحقة في الدورة المرغوبة كدورة سابقة.
+setting_generation_auto#:#بعد إكمال الدورة (تلقائي)
+setting_generation_manually#:#يدويًا
+setting_validity_range#:#نطاق التاريخ بعد إنشاء الشهادة
+setting_validity_1#:#دائمًا
+setting_validity_2#:#نطاق تاريخ
+setting_validity_3#:#تاريخ
+date_range#:#نطاق التاريخ
+setting_validity_date#:#تاريخ محدد
+date#:#التاريخ
+setting_id_notification#:#الإشعارات
+setting_id_notification_info#:#افصل بين العناوين المتعددة بفاصلة
+setting_id_notification_user#:#إشعار المستخدم
+setting_id_notification_user_info#:#إذا تم التحديد، سيُرسل بريد إلكتروني إلى المستخدم مرفقًا به الشهادة.
+validity_date_range#:#%s أشهر، %s أيام
+confirm_type_change#:#تأكيد تغيير نوع الشهادة
+confirm_type_change_text#:#بتغيير نوع الشهادة، سيتم حذف جميع المتغيرات النصية والإعدادات الحالية. ستتوفر المتغيرات النصية الجديدة المعرّفة بواسطة النوع.
+add_new_type#:#إضافة نوع شهادة جديد
+languages#:#اللغات
+description#:#الوصف
+title#:#العنوان
+template_type_id#:#نوع القالب
+roles#:#الأدوار
+roles_info#:#الأدوار المسموح لها باختيار هذا النوع من الشهادات ضمن كائن. إذا لم يُحدد أي دور، فبإمكان جميع المستخدمين اختيار النوع.
+available_objects#:#متاح في الكائنات
+available_objects_info#:#حدّد الكائنات التي يمكن اختيار هذا النوع من الشهادات فيها
+edit_type#:#تحرير نوع الشهادة
+add_type#:#إضافة نوع شهادة
+assets#:#الأصول
+assets_info#:#حدّد الأصول التي تريد حذفها بعد الحفظ
+add_assets#:#إضافة أصول
+template_file#:#ملف القالب
+template_file_info#:#يجب أن يكون الملف قالبًا صالحًا لنوع القالب المختار. إذا كان هناك ملف قالب موجود، فسيتم استبدال الحالي.
+edit_setting#:#تحرير '%s'
+edit_type_template#:#تحرير الإعدادات المتعلقة بالقالب
+setting#:#الإعداد
+editable_in#:#قابل للتعديل في
+default_value#:#القيمة الافتراضية
+default_value_lang#:#القيمة الافتراضية '%s'
+label_lang#:#التسمية '%s'
+label#:#التسمية
+identifier#:#المعرّف
+identifier_info#:#الأحرف المسموح بها: %s
+max_characters#:#الحد الأقصى للأحرف
+max_characters_info#:#إذا سمحت بأكثر من 128 حرفًا، فسيُستخدم مربع نص متعدد الأسطر للإدخال.
+mandatory#:#إلزامي
+add_new_placeholder#:#إضافة متغير نصي مخصّص جديد
+edit_placeholder#:#تحرير متغير نصي مخصّص
+add_placeholder#:#إضافة متغير نصي مخصّص
+standard_placeholders#:#المتغيرات النصية القياسية
+standard_placeholders_desc#:#هذه هي المتغيرات النصية القياسية التي يوفّرها الملحق.
+update_cert_definitions#:#تحديث تعريفات الشهادات
+update_cert_definitions_info#:#إذا تم التحديد، فسيُنشأ المتغير النصي أيضًا لتعريفات الشهادات الحالية من هذا النوع (بالقيمة الافتراضية).
+standard_settings#:#الإعدادات القياسية
+custom_settings#:#إعدادات مخصّصة
+add_new_custom_setting#:#إضافة إعداد مخصّص جديد
+custom_setting_type#:#نوع الإعداد
+custom_setting_type_1#:#منطقي (خانة اختيار)
+custom_setting_type_2#:#قيمة (قائمة منسدلة)
+custom_setting_type_2_data#:#بيانات للاختيار في القائمة المنسدلة
+custom_setting_type_2_data_info#:#أدخل القيم الممكنة للاختيار، قيمة في كل سطر. إذا كان المفتاح يجب أن يختلف عن القيمة، أضف فاصلًا مزدوجًا || بين المفتاح والقيمة، مثل: 'mykey||My Value'.
+custom_setting_default_value_info#:#منطقي: أضف '1' لتحديد خانة الاختيار افتراضيًا، قيمة: أضف مفتاحًا من بياناتك.
+custom_setting_update_cert_definitions_info#:#إذا تم التحديد، فسيُنشأ الإعداد أيضًا لتعريفات الشهادات الحالية من هذا النوع (بالقيمة الافتراضية).
+info_delete_custom_setting#:#هل أنت متأكد أنك تريد حذف الإعداد المخصّص؟ بتأكيد الحذف، سيُزال الإعداد من أي تعريف شهادة أيضًا.
+info_delete_custom_placeholder#:#هل أنت متأكد أنك تريد حذف المتغير النصي المخصّص؟ بتأكيد الحذف، سيُزال المتغير من أي تعريف شهادة أيضًا.
+msg_success_custom_setting_deleted#:#تم حذف الإعداد المخصّص بنجاح
+msg_success_custom_placeholder_deleted#:#تم حذف المتغير النصي المخصّص بنجاح
+admin_form_title#:#خيارات التهيئة
+admin_form_course_templates#:#تمكين دعم قوالب الدورات
+admin_form_course_templates_info#:#إذا تم التمكين، يوفّر الملحق إعدادات شهادات إضافية بحسب ما إذا كانت الدورة مُعلّمة كـ "قالب دورة".
+admin_form_course_templates_ref_ids#:#فئات معرّفات المرجع (Ref-IDs)
+admin_form_course_templates_ref_ids_info#:#قائمة مفصولة بفواصل لمعرّفات المرجع للفئات التي تحتوي على دورات القوالب
+admin_form_time_format_utc#:#طباعة التاريخ/الوقت على الشهادة بتوقيت UTC
+admin_form_time_format_utc_info#:#إذا تم التحديد، تُحوَّل جميع تواريخ وأوقات المتغيرات القياسية إلى توقيت UTC (باستخدام دالة PHP gmdate() بدلًا من date()).
+admin_form_str_format_date#:#تنسيق التاريخ
+admin_form_str_format_date_info#:#تنسيق التاريخ المستخدم لعرض كل التواريخ من المتغيرات القياسية.
+admin_form_str_format_datetime#:#تنسيق التاريخ والوقت
+admin_form_str_format_datetime_info#:#تنسيق التاريخ مع الوقت المستخدم لجميع المتغيرات القياسية التي تتضمن وقتًا.
+admin_form_path_hook_class#:#مسار فئة الخطّاف (Hook-Class)
+admin_form_path_hook_class_info#:#مسار الفئة '%1$s'، على سبيل المثال '%2$s'.<br>يمكن استخدام هذه الفئة لتعديل السلوك القياسي لهذا الملحق في مواضع متعددة. يجب أن تمتد srCertificateHooks (راجع وصف الفئة لمزيد من المعلومات).
+admin_form_callback_email#:#عناوين البريد الإلكتروني للاستدعاء
+admin_form_callback_email_info#:#سيُرسل بريد إلكتروني إلى هذا العنوان كلما تم استدعاء شهادة. يمكنك إضافة عدة عناوين مفصولة بفواصل.
+admin_form_disk_space_warning#:#تحذير المساحة الحرة (ميجابايت)
+admin_form_disk_space_warning_info#:#أرسل تحذيرًا لمسؤول النظام عندما تقلّ المساحة الحرة المخصّصة لإنشاء الشهادة عن هذه القيمة.
+admin_form_permission_settings#:#إعدادات الصلاحيات
+admin_form_roles_administrate_certificate_types#:#إدارة أنواع الشهادات
+admin_form_roles_administrate_certificate_types_info#:#يُسمح للمستخدمين المعيّنين إلى أحد الأدوار المحددة بإدارة أنواع الشهادات.
+admin_form_roles_administrate_certificates#:#إدارة الشهادات
+admin_form_roles_administrate_certificates_info#:#يُسمح للمستخدمين المعيّنين إلى أحد الأدوار المحددة بالبحث عالميًا عن الشهادات وتنزيلها.
+admin_form_notification_user_subject#:#إشعار للمستخدم (الموضوع)
+admin_form_notification_others_subject#:#إشعار لمستخدمين آخرين (الموضوع)
+admin_form_notification_user_body#:#إشعار للمستخدم (المتن)
+admin_form_notification_others_body#:#إشعار لمستخدمين آخرين (المتن)
+admin_form_max_diff_lp_seconds#:#نطاق زمن إنشاء PDF للشهادة (ثوانٍ)
+admin_form_max_diff_lp_seconds_info#:#يمكنك تحديد نطاق زمني بالثواني لبدء توليد PDF للشهادة. إذا أدخلت صفرًا، سيُولَّد PDF مباشرة بعد اجتياز المستخدم للدورة. يُحسب النطاق استنادًا إلى آخر وصول للمستخدم إلى الدورة وفقًا لتقدّم التعلم. لاحظ أن الإشعارات المحتملة تُرسل أيضًا بعد النطاق المحدد.
+admin_form_jasper_locale#:#الإعدادات المحلية (يونكس)
+admin_form_jasper_locale_info#:#يجب أن تدعم الإعدادات المحلية جميع الأحرف التي تحتاجها في ملفات PDF، مثل علامات umlaut الألمانية. نفّذ الأمر "locale -a" للاطلاع على قائمة الإعدادات المتاحة على نظام يونكس لديك.
+admin_form_jasper_path_java#:#مسار البرنامج التنفيذي لـ Java
+download_default_template#:#تنزيل القالب الافتراضي
+download_template#:#تنزيل القالب الحالي
+set_date_and_create#:#تعيين التاريخ وإنشاء الشهادة
+passed_at#:#تم الاجتياز في
+not_passed_yet#:#لم يتم الاجتياز بعد
+passed_date#:#التاريخ
+set_date_info#:#يرجى اختيار تاريخ للشهادة. يُستخدم التاريخ لصلاحية الشهادة ("صالح اعتبارًا من")، ولا يؤثر على وقت الإنشاء (سيتم إنشاء الشهادة فورًا).
+set_date_info_multi#:#يرجى اختيار تاريخ للشهادات. يُستخدم التاريخ لصلاحية الشهادات ("صالح اعتبارًا من")، ولا يؤثر على وقت الإنشاء (سيتم إنشاء الشهادات فورًا).
+show_certificates#:#عرض الشهادات
+participants#:#المشاركون
+definition_settings#:#إعدادات التعريف
+default_certificate#:#الشهادة الافتراضية
+notification_user_body_1#:#مرحبًا،\n\n
+notification_user_body_2#:#تم إنشاء شهادة جديدة لك:\n\n
+notification_user_body_3#:#المستخدم: [[USER_FULLNAME]]\n
+notification_user_body_4#:#الدورة: [[COURSE_TITLE]]\n
+notification_user_body_5#:#صالح حتى: [[CERT_VALID_TO]]\n\n
+notification_user_body_6#:#أُرفقت الشهادة بهذه الرسالة
+notification_user_subject#:#تم إنشاء شهادة جديدة لدورة [[COURSE_TITLE]]
+notification_others_subject#:#تم إنشاء شهادة جديدة للمستخدم [[USER_FULLNAME]]
+notification_others_body_1#:#مرحبًا،\n\n
+notification_others_body_2#:#تم إنشاء شهادة جديدة للمستخدم [[USER_FULLNAME]]:\n\n
+notification_others_body_3#:#الدورة: [[COURSE_TITLE]]\n
+notification_others_body_4#:#صالح حتى: [[CERT_VALID_TO]]\n\n
+notification_others_body_5#:#أُرفقت الشهادة بهذه الرسالة
+placeholder_USER_LOGIN#:#تسجيل الدخول
+placeholder_USER_FULLNAME#:#الاسم الكامل للمستخدم (اللقب والاسم الأول والاسم العائلي)
+placeholder_USER_FIRSTNAME#:#الاسم الأول للمستخدم
+placeholder_USER_LASTNAME#:#اسم العائلة للمستخدم
+placeholder_USER_TITLE#:#لقب المستخدم
+placeholder_USER_BIRTHDAY#:#تاريخ ميلاد المستخدم
+placeholder_USER_INSTITUTION#:#مؤسسة المستخدم
+placeholder_USER_DEPARTMENT#:#قسم المستخدم
+placeholder_USER_STREET#:#شارع عنوان المستخدم
+placeholder_USER_CITY#:#مدينة عنوان المستخدم
+placeholder_USER_ZIPCODE#:#الرمز البريدي لعنوان المستخدم
+placeholder_USER_COUNTRY#:#بلد عنوان المستخدم
+placeholder_TIMESTAMP#:#التاريخ الحالي بالمللي ثانية منذ 01.01.1970
+placeholder_DATE#:#التاريخ الفعلي
+placeholder_DATETIME#:#التاريخ والوقت الفعليان
+placeholder_DATE_COMPLETED#:#تاريخ الإكمال
+placeholder_DATETIME_COMPLETED#:#تاريخ ووقت الإكمال
+placeholder_CERT_VALID_FROM#:#تاريخ بدء صلاحية الشهادة
+placeholder_CERT_VALID_TO#:#تاريخ انتهاء صلاحية الشهادة
+placeholder_CERT_ID#:#معرّف رقمي فريد للشهادة
+placeholder_CERT_FILE_NAME#:#اسم ملف الشهادة
+placeholder_CERT_FILE_VERSION#:#إصدار ملف الشهادة
+placeholder_CERT_TYPE_TITLE#:#اسم نوع الشهادة
+placeholder_CERT_TYPE_DESCRIPTION#:#وصف نوع الشهادة
+placeholder_COURSE_TITLE#:#عنوان الدورة
+placeholder_LP_FIRST_ACCESS#:#تقدّم التعلّم: أول وصول
+placeholder_LP_LAST_ACCESS#:#تقدّم التعلّم: آخر وصول
+placeholder_LP_SPENT_TIME#:#تقدّم التعلّم: الوقت المستغرَق في الدورة
+placeholder_LP_SPENT_SECONDS#:#تقدّم التعلّم: الوقت المستغرَق في الدورة (بالثواني)
+placeholder_LP_READ_COUNT#:#تقدّم التعلّم: عدد مرات الاطلاع
+placeholder_LP_STATUS#:#تقدّم التعلّم: رمز الحالة
+placeholder_LP_AVG_PERCENTAGE#:#تقدّم التعلّم: النسبة المئوية المتوسطة للدورة
+placeholder_CERT_TEMPLATE_PATH#:#المسار الذي تُخزَّن فيه قالب الشهادة وأصولها
+placeholder_DIGITAL_SIGNATURE#:#التوقيع الرقمي
+placeholder_DIGITAL_SIGNATURE_QR_CODE#:#رمز QR لفك تشفير التوقيع الرقمي
+placeholder_CATEGORY_TITLE#:#عنوان فئة المستودع التي تحتوي على الدورة
+admin_form_notifications#:#الإشعارات
+send#:#إرسال
+edit#:#تحرير
+delete#:#حذف
+change#:#تغيير
+settings#:#الإعدادات
+diploma_confirm#:#يؤكد هذا الدبلوم أن الشخص المذكور أعلاه قد حضر دورة التدريب الموضّحة أدناه:
+valid_until#:#صالح حتى
+participation_certificate#:#شهادة مشاركة
+condition_object_type#:#ستُنشأ الشهادة عندما..
+condition_object_type_0#:#أي كائن ذي صلة بتقدّم التعلّم
+condition_object_type_1#:#أحد الكائنات المحددة
+condition_object_type_2#:#كائن من نوع محدد
+condition_object_value_ref_ids#:#الكائنات المحددة
+condition_object_value_types#:#الأنواع المحددة
+condition_status#:#.. لديه الحالة التالية:
+condition_status_1#:#قيد التقدّم
+condition_status_2#:#مكتمل
+usage_type#:#الاستخدام
+usage_type_1#:#شهادة إكمال دورة
+usage_type_2#:#شهادة مشاركة
+setting_id_show_all_versions#:#عرض جميع إصدارات الشهادة
+setting_id_show_all_versions_info#:#عرض جميع إصدارات شهاداته للمستخدم
+certificates#:#الشهادات
+admin_certificates#:#إدارة الشهادات
+certificate_types#:#أنواع الشهادات
+cron_title#:#إنشاء الشهادات
+cron_description#:#إنشاء الشهادات
