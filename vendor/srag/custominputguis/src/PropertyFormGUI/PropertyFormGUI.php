@@ -252,7 +252,7 @@ abstract class PropertyFormGUI extends ilPropertyFormGUI
      *
      * @deprecated
      */
-    private final function getFields(array $fields, $parent_item)/*: void*/
+    private function getFields(array $fields, $parent_item)/*: void*/
     {
         if (!is_array($fields)) {
             throw new PropertyFormGUIException("\$fields needs to be an array!", PropertyFormGUIException::CODE_INVALID_FIELD);
@@ -323,7 +323,7 @@ abstract class PropertyFormGUI extends ilPropertyFormGUI
     /**
      * @deprecated
      */
-    private final function initForm()/*: void*/
+    private function initForm()/*: void*/
     {
         $this->initAction();
 
@@ -338,7 +338,7 @@ abstract class PropertyFormGUI extends ilPropertyFormGUI
     /**
      * @deprecated
      */
-    private final function initItems()/*: void*/
+    private function initItems()/*: void*/
     {
         $this->initFields();
 
@@ -351,7 +351,7 @@ abstract class PropertyFormGUI extends ilPropertyFormGUI
      *
      * @deprecated
      */
-    private final function storeFormItems(array $fields)/*: void*/
+    private function storeFormItems(array $fields)/*: void*/
     {
         foreach ($fields as $key => $field) {
             if (isset($this->items_cache[$key])) {

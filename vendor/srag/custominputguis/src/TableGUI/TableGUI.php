@@ -568,7 +568,7 @@ abstract class TableGUI extends ilTable2GUI
      *
      * @deprecated
      */
-    private final function checkRowTemplateConst() : bool
+    private function checkRowTemplateConst() : bool
     {
         return (defined("static::ROW_TEMPLATE") && !empty(static::ROW_TEMPLATE));
     }
@@ -577,7 +577,7 @@ abstract class TableGUI extends ilTable2GUI
     /**
      * @deprecated
      */
-    private final function initRowTemplate()/*: void*/
+    private function initRowTemplate()/*: void*/
     {
         if ($this->checkRowTemplateConst()) {
             $this->setRowTemplate(static::ROW_TEMPLATE, self::plugin()->directory());
@@ -592,7 +592,7 @@ abstract class TableGUI extends ilTable2GUI
     /**
      * @deprecated
      */
-    private final function initTable()/*: void*/
+    private function initTable()/*: void*/
     {
         if (!(strpos($this->parent_cmd, "applyFilter") === 0
             || strpos($this->parent_cmd, "resetFilter") === 0)

@@ -264,7 +264,7 @@ class srCertificate extends ActiveRecord
         $this->event_handler->raise('Certificate/srCertificate', 'create', array('object' => $this));
     }
 
-    public function update()
+    public function update(): void
     {
         parent::update();
         if ($this->hasStatusChanged()) {
@@ -282,7 +282,7 @@ class srCertificate extends ActiveRecord
     /**
      * Also delete certificate file
      */
-    public function delete()
+    public function delete(): void
     {
         parent::delete();
         @unlink($this->getFilePath());
@@ -473,7 +473,7 @@ class srCertificate extends ActiveRecord
         $sql = "SELECT ";
         $sql .= ($options['count']) ? 'COUNT(*) AS count ' : 'cert.*, usr.firstname, usr.lastname, cert_type.title AS cert_type, obj_data.title AS crs_title ';
         $sql .= "FROM " . self::TABLE_NAME . " AS cert " . "INNER JOIN cert_definition AS cert_def ON (cert_def.id = cert.definition_id) "
-            . (!empty($options['filters']) && $options['filters']['show_all_versions_definition_setting'] ? "LEFT JOIN " . srCertificateDefinitionSetting::TABLE_NAME
+            . (!empty($options['filters']) && isset($options['filters']['show_all_versions_definition_setting']) && $options['filters']['show_all_versions_definition_setting'] ? "LEFT JOIN " . srCertificateDefinitionSetting::TABLE_NAME
                 . " AS show_all_versions_definition_setting ON cert_def.id=show_all_versions_definition_setting.definition_id AND show_all_versions_definition_setting.identifier="
                 . $ilDB->quote(srCertificateTypeSetting::IDENTIFIER_SHOW_ALL_VERSIONS,
                     ilDBConstants::T_TEXT) . " " : "")

@@ -36,7 +36,7 @@ class srCertificatePreview extends srCertificate
         $this->filename = self::PREVIEW_FILENAME;
     }
 
-    public function update()
+    public function update(): void
     {
         throw new srCertificateException("Can't update CertificatePreview object because it exists only temporary");
     }
@@ -46,7 +46,7 @@ class srCertificatePreview extends srCertificate
         throw new srCertificateException("Can't create CertificatePreview object because it exists only temporary");
     }
 
-    public function delete()
+    public function delete(): void
     {
         throw new srCertificateException("Can't delete CertificatePreview object because it exists only temporary");
     }

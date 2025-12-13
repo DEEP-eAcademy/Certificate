@@ -60,7 +60,7 @@ class srCertificateTypeSetting extends srCertificateSetting
         parent::create();
     }
 
-    public function update()
+    public function update(): void
     {
         // TODO: predecessor/successor
         parent::update();

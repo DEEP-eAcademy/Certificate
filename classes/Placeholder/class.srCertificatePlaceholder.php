@@ -224,7 +224,7 @@ class srCertificatePlaceholder extends ActiveRecord
         return self::TABLE_NAME;
     }
 
-    public function delete()
+    public function delete(): void
     {
         // By deleting a placeholder, all placeholder values of existing definitions are deleted as well!
         foreach (srCertificatePlaceholderValue::where(array('placeholder_id' => $this->getId()))->get() as $value) {

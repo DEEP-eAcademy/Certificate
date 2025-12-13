@@ -89,7 +89,7 @@ class srCertificateCustomTypeSetting extends srCertificateTypeSetting
         return parent::sleep($key);
     }
 
-    public function delete()
+    public function delete(): void
     {
         // Delete setting on all definitions
         foreach (srCertificateDefinition::where(array('type_id' => $this->getTypeId()))->get() as $definition) {

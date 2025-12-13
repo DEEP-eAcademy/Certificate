@@ -70,7 +70,7 @@ abstract class ConfigPropertyFormGUI extends PropertyFormGUI
      *
      * @deprecated
      */
-    private final function checkConfigClassNameConst()/*: void*/
+    private function checkConfigClassNameConst()/*: void*/
     {
         if (!defined("static::CONFIG_CLASS_NAME") || empty(static::CONFIG_CLASS_NAME) || !class_exists(static::CONFIG_CLASS_NAME)) {
             throw new PropertyFormGUIException("Your class needs to implement the CONFIG_CLASS_NAME constant!", PropertyFormGUIException::CODE_MISSING_CONST_CONFIG_CLASS_NAME);

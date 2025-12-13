@@ -373,7 +373,7 @@ class srCertificateType extends ActiveRecord
     /**
      * Delete also related certificate definitions and assets
      */
-    public function delete()
+    public function delete(): void
     {
         parent::delete();
         $definitions = srCertificateDefinition::where(array('type_id' => $this->getId()))->get();

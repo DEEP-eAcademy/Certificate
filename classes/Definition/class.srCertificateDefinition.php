@@ -96,7 +96,7 @@ class srCertificateDefinition extends ActiveRecord
      * Also update placeholder values and settings.
      * If the certificate type did change, delete old settings/placeholder values and create new default ones from new type.
      */
-    public function update()
+    public function update(): void
     {
         /** @var $setting srCertificateDefinitionSetting */
         /** @var $pl srCertificatePlaceholderValue */

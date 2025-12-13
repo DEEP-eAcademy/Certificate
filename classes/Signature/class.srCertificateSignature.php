@@ -80,7 +80,7 @@ class srCertificateSignature extends ActiveRecord
         $this->setLastName($old_signature->getLastName());
     }
 
-    public function delete()
+    public function delete(): void
     {
         parent::delete();
         @unlink($this->getFilePath(true));
