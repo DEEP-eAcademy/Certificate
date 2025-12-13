@@ -66,7 +66,8 @@ class srCertificateParticipantsTableGUI extends ilTable2GUI
      */
     protected function parseData()
     {
-        $ilCourseParticipants = new ilCourseParticipants(ilObject::_lookupObjectId($_GET['ref_id']));
+        $ref_id = isset($_GET['ref_id']) ? (int) $_GET['ref_id'] : 0;
+        $ilCourseParticipants = new ilCourseParticipants(ilObject::_lookupObjectId($ref_id));
         $participant_ids = $ilCourseParticipants->getParticipants();
 
         $data = array();
@@ -114,7 +115,7 @@ class srCertificateParticipantsTableGUI extends ilTable2GUI
         $date_function = ($utc) ? 'gmdate' : 'date';
 
         foreach (self::$columns as $k => $column) {
-            $value = (is_null($a_set[$column])) ? '' : $a_set[$column];
+            $value = $a_set[$column] ?? '';
 
             if ($column == 'passed_at') {
                 /** @var srCertificate $cert */

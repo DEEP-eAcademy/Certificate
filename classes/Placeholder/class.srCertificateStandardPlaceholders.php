@@ -311,15 +311,17 @@ class srCertificateStandardPlaceholders
             // Course itself is in pos 0 so we count from pos 1
             for ($i = 0; $i < $count_objects; $i++) {
                 // If there was no access to the object, don't count percentage
-                if (is_null($lp_data['set'][$i]['first_access'])) {
+                if (!isset($lp_data['set'][$i]['first_access']) || is_null($lp_data['set'][$i]['first_access'])) {
                     continue;
                 }
                 // Don't count the course
-                if ($lp_data['set'][$i]['type'] == 'crs') {
+                if (!isset($lp_data['set'][$i]['type']) || $lp_data['set'][$i]['type'] == 'crs') {
                     continue;
                 }
-                $avg += (int) $lp_data['set'][$i]['percentage'];
-                $count_avg++;
+                if (isset($lp_data['set'][$i]['percentage'])) {
+                    $avg += (int) $lp_data['set'][$i]['percentage'];
+                    $count_avg++;
+                }
             }
             $return = ($count_avg) ? $avg / ($count_avg) : null;
         }
@@ -366,11 +368,13 @@ class srCertificateStandardPlaceholders
         $lp_crs = array();
         $max_last_access = 0;
         foreach ($lp_data['set'] as $v) {
-            if ($v['type'] == 'crs') {
+            if (isset($v['type']) && $v['type'] == 'crs') {
                 $lp_crs = $v;
-                $lp_crs['first_access'] = strtotime($v['first_access']); // First access is not stored as UNIX timestamp...
+                if (isset($v['first_access'])) {
+                    $lp_crs['first_access'] = strtotime($v['first_access']); // First access is not stored as UNIX timestamp...
+                }
             }
-            if ($v['last_access'] > $max_last_access) {
+            if (isset($v['last_access']) && $v['last_access'] > $max_last_access) {
                 $max_last_access = $v['last_access'];
             }
         }

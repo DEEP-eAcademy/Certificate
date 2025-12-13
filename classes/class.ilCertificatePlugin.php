@@ -242,7 +242,8 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin
                 if (isset($parameters['object']) && $parameters['object'] instanceof ilObjCourse) {
                     $course = $parameters['object'];
                 } elseif (isset($parameters['obj_id'])) {
-                    $course = new ilObjCourse(array_pop(ilObject::_getAllReferences($parameters['obj_id'])));
+                    $refs = ilObject::_getAllReferences($parameters['obj_id']);
+                    $course = new ilObjCourse(array_pop($refs));
                 }
                 if (!$course) {
                     return;

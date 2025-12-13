@@ -147,8 +147,10 @@ class srCertificateCronjob
             array('last_access'));
         $last_status = null;
         foreach ($lp_data['set'] as $data) {
-            if ($data['type'] == 'crs') {
-                $last_status = $data['last_access'];
+            if (isset($data['type']) && $data['type'] == 'crs') {
+                if (isset($data['last_access'])) {
+                    $last_status = $data['last_access'];
+                }
                 break;
             }
         }

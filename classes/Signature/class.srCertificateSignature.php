@@ -126,7 +126,7 @@ class srCertificateSignature extends ActiveRecord
      */
     public function storeSignatureFile(array $file_data)
     {
-        if ($file_data['name'] && !$file_data['error']) {
+        if (isset($file_data['name']) && $file_data['name'] && isset($file_data['error']) && !$file_data['error']) {
             $file_path = $this->getFilePath(false);
             if (!is_dir($file_path)) {
                 ilFileUtils::makeDirParents($file_path);

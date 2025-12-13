@@ -264,7 +264,7 @@ class srCertificateType extends ActiveRecord
      */
     public function storeAsset(array $file_data)
     {
-        if ($file_data['name'] && !$file_data['error']) {
+        if (isset($file_data['name']) && $file_data['name'] && isset($file_data['error']) && !$file_data['error']) {
             $file_name = $file_data['name'];
             $file_path = $this->getCertificateTemplatesPath() . DIRECTORY_SEPARATOR . $file_name;
 
@@ -283,7 +283,7 @@ class srCertificateType extends ActiveRecord
      */
     public function storeTemplateFile(array $file_data)
     {
-        if ($file_data['name'] && !$file_data['error']) {
+        if (isset($file_data['name']) && $file_data['name'] && isset($file_data['error']) && !$file_data['error']) {
             return $this->storeTemplateFileFromServer($file_data['tmp_name']);
         }
 

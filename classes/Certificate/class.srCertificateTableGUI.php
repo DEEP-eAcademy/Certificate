@@ -393,7 +393,7 @@ class srCertificateTableGUI extends ilTable2GUI
         $data = srCertificate::getCertificateData(array_merge($options, array('count' => false)));
 
         foreach ($data as $cert) {
-            if ($cert["status"] == srCertificate::STATUS_PROCESSED) {
+            if (isset($cert["status"]) && $cert["status"] == srCertificate::STATUS_PROCESSED) {
                 $this->has_any_certs = true;
             }
         }

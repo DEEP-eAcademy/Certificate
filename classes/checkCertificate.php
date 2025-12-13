@@ -6,7 +6,8 @@ require_once("Services/Init/classes/class.ilInitialisation.php");
 ilInitialisation::initILIAS();
 
 require 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/classes/DigitalSignature/class.srCertificateDigitalSignature.php';
-$decrypted = srCertificateDigitalSignature::decryptSignature(strtr($_GET['signature'], '-_,', '+/='));
+$signature = isset($_GET['signature']) ? $_GET['signature'] : '';
+$decrypted = $signature ? srCertificateDigitalSignature::decryptSignature(strtr($signature, '-_,', '+/=')) : false;
 ?>
 
 

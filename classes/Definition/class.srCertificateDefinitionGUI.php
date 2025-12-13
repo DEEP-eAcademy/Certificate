@@ -100,7 +100,7 @@ class srCertificateDefinitionGUI
         $this->global_tpl = $DIC->ui()->mainTemplate();
         $this->toolbar = $DIC->toolbar();
         $this->tabs = $DIC->tabs();
-        $this->ref_id = (int) $_GET['ref_id'];
+        $this->ref_id = isset($_GET['ref_id']) ? (int) $_GET['ref_id'] : 0;
         $this->crs = ilObjectFactory::getInstanceByRefId($this->ref_id);
         $this->definition = srCertificateDefinition::where(array('ref_id' => $this->ref_id))->first();
         $this->pl = ilCertificatePlugin::getInstance();
@@ -230,11 +230,13 @@ class srCertificateDefinitionGUI
     protected function buildActions()
     {
         $alist = new ilAdvancedSelectionListGUI();
-        $alist->setId((int) $_GET['cert_id']);
+        $cert_id = isset($_GET['cert_id']) ? (int) $_GET['cert_id'] : 0;
+        $alist->setId($cert_id);
         $alist->setListTitle($this->pl->txt('actions'));
-        $this->ctrl->setParameter($this, 'cert_id', (int) $_GET['cert_id']);
+        $this->ctrl->setParameter($this, 'cert_id', $cert_id);
 
-        switch ($_GET['status']) {
+        $status = isset($_GET['status']) ? $_GET['status'] : null;
+        switch ($status) {
             case srCertificate::STATUS_CALLED_BACK:
                 $alist->addItem($this->pl->txt('undo_callback'), self::CMD_UNDO_CALL_BACK,
                     $this->ctrl->getLinkTarget($this, self::CMD_UNDO_CALL_BACK));
@@ -360,7 +362,7 @@ class srCertificateDefinitionGUI
     public function updateDefinition()
     {
         $this->tabs->activateSubTab(self::TAB_SHOW_DEFINITION);
-        if ($_POST['change_type'] && $_POST['type_id'] != $this->definition->getTypeId()) {
+        if (isset($_POST['change_type']) && $_POST['change_type'] && isset($_POST['type_id']) && $_POST['type_id'] != $this->definition->getTypeId()) {
             $this->confirmTypeChange();
         } else {
             $this->form = new srCertificateDefinitionFormGUI($this, $this->definition);
@@ -441,7 +443,7 @@ class srCertificateDefinitionGUI
      */
     public function downloadCertificates()
     {
-        $cert_ids = (array) $_POST['cert_id'];
+        $cert_ids = isset($_POST['cert_id']) ? (array) $_POST['cert_id'] : array();
         $ids = array();
         foreach ($cert_ids as $cert_id) {
             /** @var srCertificate $certificate */
@@ -466,10 +468,10 @@ class srCertificateDefinitionGUI
         $this->tabs->activateSubTab(self::TAB_SHOW_PARTICIPANTS);
         $this->global_tpl->setOnScreenMessage($this->global_tpl::MESSAGE_TYPE_INFO, $this->pl->txt('set_date_info'));
 
-        if ($_POST['user_id']) {
+        if (isset($_POST['user_id']) && $_POST['user_id']) {
             $user_ids = $_POST['user_id'];
         } else {
-            $user_ids = array($_GET['user_id']);
+            $user_ids = array(isset($_GET['user_id']) ? $_GET['user_id'] : null);
         }
 
         $form = new ilPropertyFormGUI();
@@ -493,10 +495,10 @@ class srCertificateDefinitionGUI
      */
     public function setDateAndCreate()
     {
-        $user_ids = json_decode($_POST['user_ids'], true);
-        /*$date = $_POST['passed_date']['date'];
-        $date_string = $date['y'] . '-' . $date['m'] . '-' . $date['d'];*/
-        $date = $_POST['passed_date'];
+        $user_ids = isset($_POST['user_ids']) ? json_decode($_POST['user_ids'], true) : array();
+        /*$date = isset($_POST['passed_date']['date']) ? $_POST['passed_date']['date'] : null;
+        $date_string = isset($date['y'], $date['m'], $date['d']) ? $date['y'] . '-' . $date['m'] . '-' . $date['d'] : null;*/
+        $date = isset($_POST['passed_date']) ? $_POST['passed_date'] : null;
         $date_string = date("Y-m-d", strtotime($date));
         foreach ($user_ids as $user_id) {
             $cert = new srCertificate();
@@ -547,7 +549,7 @@ class srCertificateDefinitionGUI
      */
     public function confirmTypeChange()
     {
-        $new_type_id = (int) $_POST['type_id'];
+        $new_type_id = isset($_POST['type_id']) ? (int) $_POST['type_id'] : 0;
         $conf_gui = new ilConfirmationGUI();
         $conf_gui->setFormAction($this->ctrl->getFormAction($this));
         $conf_gui->setHeaderText($this->pl->txt('confirm_type_change'));
@@ -562,7 +564,7 @@ class srCertificateDefinitionGUI
      */
     public function updateType()
     {
-        $new_type_id = (int) $_POST['type_id'];
+        $new_type_id = isset($_POST['type_id']) ? (int) $_POST['type_id'] : 0;
         if ($new_type_id && $new_type_id != $this->definition->getTypeId()) {
             $this->definition->setTypeId($new_type_id);
             $this->definition->update();
