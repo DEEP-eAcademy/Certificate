@@ -306,3 +306,7 @@ admin_certificates#:#إدارة الشهادات
 certificate_types#:#أنواع الشهادات
 cron_title#:#إنشاء الشهادات
 cron_description#:#إنشاء الشهادات
+check_certificate#:#التحقق من الشهادة
+certificate_valid#:#الشهادة صالحة.
+certificate_invalid#:#الشهادة غير صالحة.
+certificate_invalid_message#:#تعذر فك تشفير توقيع الشهادة. قد يشير ذلك إلى أن الشهادة غير صالحة أو تم العبث بها.

@@ -1,5 +1,5 @@
 msg_default_language_must_be_set#:#Standard-Language must be set.
-decrypt_failed#:#The signature value could not be decrypted.
+decrypt_failed#:#Nie można odszyfrować podpisu.
 signature#:#Signature
 signature_file#:#Signature File
 signature_file_info#:#Upload an image which represents the signature here.
@@ -10,7 +10,7 @@ last_name#:#Last Name
 first_name#:#First Name
 add_new_signature#:#Add New Signature
 edit_signature#:#Edit Signature
-decrypt_successful#:#The decryption was successful.
+decrypt_successful#:#Odszyfrowanie zakończyło się sukcesem.
 in_process#:#In Process
 general#:#General
 template#:#Template
@@ -306,3 +306,7 @@ admin_certificates#:#Administration of Certificates
 certificate_types#:#Typ certyfikatu
 cron_title#:#Generate certificates
 cron_description#:#Generate certificates
+check_certificate#:#Sprawdź certyfikat
+certificate_valid#:#Certyfikat jest prawidłowy.
+certificate_invalid#:#Certyfikat jest nieprawidłowy.
+certificate_invalid_message#:#Nie można odszyfrować podpisu certyfikatu. Może to oznaczać, że certyfikat jest nieprawidłowy lub został zmodyfikowany.

@@ -1,84 +1,62 @@
 <?php
-chdir('../../../../../../../../');
-include_once "Services/Context/classes/class.ilContext.php";
-ilContext::init(ilContext::CONTEXT_SOAP_NO_AUTH);
-require_once("Services/Init/classes/class.ilInitialisation.php");
+/**
+ * Legacy certificate check redirect
+ *
+ * @deprecated Use:
+ * /ilias.php?baseClass=ilUIPluginRouterGUI&cmdClass=certCheckCertificateGUI&cmd=show&signature=...
+ */
+declare(strict_types=1);
+
+
+chdir('../../../../../../../../'); 
+include_once "Services/Context/classes/class.ilContext.php"; 
+ilContext::init(ilContext::CONTEXT_WEB); 
+require_once("Services/Init/classes/class.ilInitialisation.php"); 
 ilInitialisation::initILIAS();
 
-require 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/classes/DigitalSignature/class.srCertificateDigitalSignature.php';
-$signature = isset($_GET['signature']) ? $_GET['signature'] : '';
-$decrypted = $signature ? srCertificateDigitalSignature::decryptSignature(strtr($signature, '-_,', '+/=')) : false;
-?>
 
+// Read parameters
+$signature = (string) ($_GET['signature'] ?? '');
+$client_id = (string) ($_GET['client_id'] ?? '');
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>ILIAS</title>
-</head>
-<body class="std">
-<div id="drag_zmove"></div>
-<div id="ilAll">
-    <div class="ilias-light-login-bg"></div>
-    <div class="ilMainMenu">
-        <div class="container login_page">
-            <div class="row">
-                <nav id="ilTopNav" class="navbar navbar-default" role="navigation"></nav>
-            </div>
-        </div>
-    </div>
-    <div id="mainspacekeeper" class="container login_page">
-        <div class="row" style="position: relative;">
-            <div id="fixed_content" class="ilContentFixed login_page">
-                <div id="mainscrolldiv" class="ilStartupFrame container">
+$signature = trim($signature);
+$client_id = trim($client_id);
 
+// Allow only expected characters (URL-safe base64 + =)
+if ($signature !== '' && !preg_match('/^[A-Za-z0-9\-\_,=]+$/', $signature)) {
+    $signature = '';
+}
 
-                    <div class="ilMessageBox">
+// ILIAS client id: alnum, underscore, dash
+if ($client_id !== '' && !preg_match('/^[A-Za-z0-9_\-]+$/', $client_id)) {
+    $client_id = '';
+}
 
+// Build target URL
+$base_url = rtrim(ILIAS_HTTP_PATH, '/');
 
-                    </div>
+// Strip plugin path, keep ILIAS root
+// ILIAS_HTTP_PATH example:
+// https://example.com/ilias/Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/classes/
+$ilias_root = preg_replace('~/Customizing/.*$~', '', $base_url);
 
-                    <div class="small"><p style="text-align: left;"><strong></strong><br/><span></span></p></div>
+// Build redirect parameters
+$params = [
+    'baseClass' => 'ilUIPluginRouterGUI',
+    'cmdClass'  => 'certCheckCertificateGUI',
+    'cmd'       => 'show',
+];
 
+if ($signature !== '') {
+    $params['signature'] = $signature;
+}
+if ($client_id !== '') {
+    $params['client_id'] = $client_id;
+}
 
-                    <div>
+// Final redirect URL
+$redirect_url = $ilias_root . '/ilias.php?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
 
-                    </div>
-                    <div class="ilStartupSection">
-
-                        <div id="fixed_content" class=" ilContentFixed">
-                            <div id="mainscrolldiv" class="ilStartupFrame container">
-
-
-                                <?php if ($decrypted) { ?>
-                                    <div class="alert alert-info">
-                                        <h2>CHECK CERTIFICATE SIGNATURE</h2>
-                                        <h5 class="ilAccHeadingHidden"><a id="il_message_focus" name="il_message_focus" style="color:green">The certificate is valid.</a>
-                                        </h5>
-                                        <p>The decryption was successful.<br/><?php echo $decrypted; ?></p>
-                                    </div>
-                                <?php } else { ?>
-                                    <div class="alert alert-warning">
-                                        <h2>CHECK CERTIFICATE SIGNATURE</h2>
-                                        <h5 class="ilAccHeadingHidden">
-                                            <a id="il_message_focus" name="il_message_focus" style="color:red;">The certificate is invalid.<a/>
-                                        </h5>
-                                        <p>The certificate cannot be decrypted.</p>
-                                    </div>
-                                <?php } ?>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="minheight"></div>
-
-            </div>
-
-</body>
-</html>
+// Redirect
+header('Location: ' . $redirect_url, true, 303);
+exit;

@@ -193,7 +193,7 @@ class srCertificateStandardPlaceholders
         }
 
         $digital_signature = srCertificateDigitalSignature::getSignatureForCertificate($this->certificate);
-        $link_digital_signature = ILIAS_HTTP_PATH . '/Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/classes/checkCertificate.php?client_id=' . CLIENT_ID . '&signature=' . strtr($digital_signature,
+        $link_digital_signature = ILIAS_HTTP_PATH . '/ilias.php?baseClass=ilUIPluginRouterGUI&cmdClass=certCheckCertificateGUI&cmd=show&client_id=' . CLIENT_ID . '&signature=' . strtr($digital_signature,
                 '+/=', '-_,');
         $QrCode = new QrCode($link_digital_signature);
         $QrCode->setSize(80);

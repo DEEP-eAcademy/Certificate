@@ -45,12 +45,25 @@ class srCertificateDigitalSignature
 
     /**
      * @param $signature
-     * @return mixed
+     * @return mixed|false Returns decrypted data on success, false on failure
      */
     public static function decryptSignature($signature)
     {
         $key = openssl_get_publickey('file://' . self::getPathOf(self::KEYTYPE_PUBLIC));
-        openssl_public_decrypt(base64_decode($signature), $decrypted, $key);
+        if (!$key) {
+            return false;
+        }
+        
+        $decoded = base64_decode($signature, true);
+        if ($decoded === false) {
+            return false;
+        }
+        
+        $result = openssl_public_decrypt($decoded, $decrypted, $key);
+        if (!$result || empty($decrypted)) {
+            return false;
+        }
+        
         return $decrypted;
     }
 

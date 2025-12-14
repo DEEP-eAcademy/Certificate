@@ -306,3 +306,7 @@ admin_certificates#:#Administration of Certificates
 certificate_types#:#Certificate Types
 cron_title#:#Generate certificates
 cron_description#:#Generate certificates
+check_certificate#:#Check Certificate
+certificate_valid#:#The certificate is valid.
+certificate_invalid#:#The certificate is invalid.
+certificate_invalid_message#:#The certificate signature could not be decrypted. This may indicate that the certificate is invalid or has been tampered with.

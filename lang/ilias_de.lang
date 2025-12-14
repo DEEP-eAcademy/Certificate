@@ -305,3 +305,7 @@ admin_certificates#:#Administration Zertifikate
 certificate_types#:#Zertifikatstypen
 cron_title#:#Zertifikate generieren
 cron_description#:#Zertifikate generieren
+check_certificate#:#Zertifikat überprüfen
+certificate_valid#:#Das Zertifikat ist gültig.
+certificate_invalid#:#Das Zertifikat ist ungültig.
+certificate_invalid_message#:#Die Zertifikatssignatur konnte nicht entschlüsselt werden. Dies kann darauf hindeuten, dass das Zertifikat ungültig ist oder manipuliert wurde.
