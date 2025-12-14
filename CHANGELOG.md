@@ -1,5 +1,15 @@
 # Changelog
 
+## [6.0.0]
+- ILIAS 9 support
+- PHP 8.2+ support
+- Removed PHP72Backport script (no longer needed)
+- Fixed PHP 8.2 compatibility issues with array_pop()
+- Remove Dutch language
+- Improve certificate check GUI
+- Merge CertificateCron wrapper plugin functionality into the Certificate plugin (no separate installation required)
+- Clean up legacy CertificateCron cron job entries to avoid invalid job warnings
+
 ## [5.0.0]
 - ILIAS 8 support
 
