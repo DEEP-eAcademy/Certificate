@@ -15,8 +15,8 @@ The certificate plugin offers an enhanced support for creating and administratin
 * Rendering PDF certificates with the integraded PDF Service in ILIAS (>= 4.4) or with JasperReports
 
 ### Requirements
-* ILIAS 8
-* PHP 7.0 - 7.4
+* ILIAS 9
+* PHP 8.2+
 
 ## Installation
 Start at your ILIAS root directory
@@ -27,7 +27,7 @@ git clone https://github.com/DEEP-eAcademy/Certificate.git Certificate
 ```
 Update and activate the plugin in the ILIAS Plugin Administration
 
-Please also install and enable [CertificateCron](https://github.com/studer-raimann/CertificateCron).
+The certificate cron job is bundled with the plugin and becomes available automatically after activation.
 
 ## Documentation
 

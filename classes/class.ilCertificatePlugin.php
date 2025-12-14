@@ -1,15 +1,17 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-use srag\DIC\Certificate\DICTrait;
-use srag\Plugins\Certificate\Menu\Menu;
 use ILIAS\GlobalScreen\Provider\PluginProviderCollection;
+use InvalidArgumentException;
+use srag\DIC\Certificate\DICTrait;
+use srag\Plugins\Certificate\Cron\CertificateJob;
+use srag\Plugins\Certificate\Menu\Menu;
 /**
  * Certificate Plugin
  * @author  Stefan Wanzenried <sw@studer-raimann.ch>
  * @author  Theodor Truffer <tt@studer-raimann.ch>
  * @version $Id$
  */
-class ilCertificatePlugin extends ilUserInterfaceHookPlugin
+class ilCertificatePlugin extends ilUserInterfaceHookPlugin implements ilCronJobProvider
 {
     use DICTrait;
 
@@ -257,6 +259,30 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin
                 $handler->handle($event, $parameters);
                 break;
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCronJobInstance(string $jobId) : ilCronJob
+    {
+        switch ($jobId) {
+            case CertificateJob::CRON_JOB_ID:
+                return new CertificateJob();
+
+            default:
+                throw new InvalidArgumentException("Unknown cron job ID: " . $jobId);
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCronJobInstances() : array
+    {
+        return [
+            new CertificateJob()
+        ];
     }
 
     public function getPrefix(): string

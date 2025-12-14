@@ -319,3 +319,17 @@ foreach ($definitions as $def) {
     }
 }
 ?>
+<#24>
+<?php
+require_once 'Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/vendor/autoload.php';
+
+global $DIC;
+$ilDB = $DIC->database();
+
+if ($ilDB->tableExists('cron_job')) {
+    $component = $ilDB->quote('CertificateCron', 'text');
+    $job_id = $ilDB->quote(ilCertificatePlugin::PLUGIN_ID, 'text');
+
+    $ilDB->manipulate('DELETE FROM cron_job WHERE component = ' . $component . ' AND job_id = ' . $job_id);
+}
+?>
