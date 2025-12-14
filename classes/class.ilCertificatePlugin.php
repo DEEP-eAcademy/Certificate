@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 use ILIAS\GlobalScreen\Provider\PluginProviderCollection;
-use InvalidArgumentException;
 use srag\DIC\Certificate\DICTrait;
 use srag\Plugins\Certificate\Cron\CertificateJob;
 use srag\Plugins\Certificate\Menu\Menu;
@@ -271,7 +270,7 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin implements ilCronJob
                 return new CertificateJob();
 
             default:
-                throw new InvalidArgumentException("Unknown cron job ID: " . $jobId);
+                throw new \InvalidArgumentException("Unknown cron job ID: " . $jobId);
         }
     }
 
