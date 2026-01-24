@@ -1,5 +1,8 @@
 # Changelog
 
+## [7.0.0]
+- ILIAS 10 support
+
 ## [6.0.0]
 - ILIAS 9 support
 - PHP 8.2+ support
