@@ -33,6 +33,14 @@ class srCertificateParticipantsTableGUI extends ilTable2GUI
      * @var ilCertificatePlugin
      */
     protected $pl;
+    /**
+     * @var \ILIAS\UI\Factory
+     */
+    protected \ILIAS\UI\Factory $ui_factory;
+    /**
+     * @var \ILIAS\UI\Renderer
+     */
+    protected \ILIAS\UI\Renderer $ui_renderer;
 
     /**
      * srCertificateParticipantsTableGUI constructor.
@@ -47,6 +55,8 @@ class srCertificateParticipantsTableGUI extends ilTable2GUI
         $this->user = $DIC->user();
         $this->definition = $definition;
         $this->pl = ilCertificatePlugin::getInstance();
+        $this->ui_factory = $DIC->ui()->factory();
+        $this->ui_renderer = $DIC->ui()->renderer();
         $this->setPrefix('cert_par_');
         $this->setId($definition->getId());
         parent::__construct($a_parent_obj, $a_parent_cmd);
@@ -148,14 +158,16 @@ class srCertificateParticipantsTableGUI extends ilTable2GUI
         }
         // Actions
         $this->ctrl->setParameter($this->parent_obj, 'user_id', $a_set['id']);
-        $actions = new ilAdvancedSelectionListGUI();
-        $actions->setId('action_list_' . $a_set['id']);
-        $actions->setListTitle($this->pl->txt('actions'));
-        $actions->addItem($this->pl->txt('set_date_and_create'), 'setDate',
-            $this->ctrl->getLinkTarget($this->parent_obj, srCertificateDefinitionGUI::CMD_SET_DATE));
+        $action_button = $this->ui_factory->button()->shy(
+            $this->pl->txt('set_date_and_create'),
+            $this->ctrl->getLinkTarget($this->parent_obj, srCertificateDefinitionGUI::CMD_SET_DATE)
+        );
+        $actions = $this->ui_factory->dropdown()
+            ->standard([$action_button])
+            ->withLabel($this->pl->txt('actions'));
 
         $this->tpl->setCurrentBlock('ACTIONS');
-        $this->tpl->setVariable('ACTIONS', $actions->getHTML());
+        $this->tpl->setVariable('ACTIONS', $this->ui_renderer->render($actions));
         $this->tpl->parseCurrentBlock();
     }
 }
