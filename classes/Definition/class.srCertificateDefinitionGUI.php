@@ -229,31 +229,42 @@ class srCertificateDefinitionGUI
      */
     protected function buildActions()
     {
-        $alist = new ilAdvancedSelectionListGUI();
+        $ui_factory = self::dic()->ui()->factory();
+        $ui_renderer = self::dic()->ui()->renderer();
         $cert_id = isset($_GET['cert_id']) ? (int) $_GET['cert_id'] : 0;
-        $alist->setId($cert_id);
-        $alist->setListTitle($this->pl->txt('actions'));
         $this->ctrl->setParameter($this, 'cert_id', $cert_id);
+        $buttons = [];
 
         $status = isset($_GET['status']) ? $_GET['status'] : null;
         switch ($status) {
             case srCertificate::STATUS_CALLED_BACK:
-                $alist->addItem($this->pl->txt('undo_callback'), self::CMD_UNDO_CALL_BACK,
-                    $this->ctrl->getLinkTarget($this, self::CMD_UNDO_CALL_BACK));
+                $buttons[] = $ui_factory->button()->shy(
+                    $this->pl->txt('undo_callback'),
+                    $this->ctrl->getLinkTarget($this, self::CMD_UNDO_CALL_BACK)
+                );
                 break;
             case srCertificate::STATUS_FAILED:
-                $alist->addItem($this->pl->txt('retry'), 'retry',
-                    $this->ctrl->getLinkTarget($this, self::CMD_RETRY_GENERATION));
+                $buttons[] = $ui_factory->button()->shy(
+                    $this->pl->txt('retry'),
+                    $this->ctrl->getLinkTarget($this, self::CMD_RETRY_GENERATION)
+                );
                 break;
             case srCertificate::STATUS_PROCESSED:
-                $alist->addItem($this->pl->txt('download'), 'download',
-                    $this->ctrl->getLinkTarget($this, self::CMD_DOWNLOAD_CERTIFICATE));
-                $alist->addItem($this->pl->txt('call_back'), 'call_back',
-                    $this->ctrl->getLinkTarget($this, self::CMD_CALL_BACK));
+                $buttons[] = $ui_factory->button()->shy(
+                    $this->pl->txt('download'),
+                    $this->ctrl->getLinkTarget($this, self::CMD_DOWNLOAD_CERTIFICATE)
+                );
+                $buttons[] = $ui_factory->button()->shy(
+                    $this->pl->txt('call_back'),
+                    $this->ctrl->getLinkTarget($this, self::CMD_CALL_BACK)
+                );
                 break;
         }
 
-        echo $alist->getHTML(true);
+        $dropdown = $ui_factory->dropdown()
+            ->standard($buttons)
+            ->withLabel($this->pl->txt('actions'));
+        echo $ui_renderer->render($dropdown);
         exit;
     }
 

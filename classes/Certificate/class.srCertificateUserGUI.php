@@ -62,13 +62,17 @@ class srCertificateUserGUI extends srCertificateGUI
     protected function buildActions()
     {
         // Download is only possible if certificate is processed
-        $alist = new ilAdvancedSelectionListGUI();
-        $alist->setId((int) $_GET['cert_id']);
-        $alist->setListTitle($this->pl->txt('actions'));
+        $ui_factory = self::dic()->ui()->factory();
+        $ui_renderer = self::dic()->ui()->renderer();
         $this->ctrl->setParameter($this, 'cert_id', (int) $_GET['cert_id']);
-        $alist->addItem($this->pl->txt('download'), 'download',
-            $this->ctrl->getLinkTarget($this, self::CMD_DOWNLOAD_CERTIFICATE));
-        echo $alist->getHTML(true);
+        $button = $ui_factory->button()->shy(
+            $this->pl->txt('download'),
+            $this->ctrl->getLinkTarget($this, self::CMD_DOWNLOAD_CERTIFICATE)
+        );
+        $dropdown = $ui_factory->dropdown()
+            ->standard([$button])
+            ->withLabel($this->pl->txt('actions'));
+        echo $ui_renderer->render($dropdown);
         exit;
     }
 

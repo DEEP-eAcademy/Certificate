@@ -50,6 +50,14 @@ class srCertificateTableGUI extends ilTable2GUI
      */
     protected ?ilObjUser $user;
     /**
+     * @var \ILIAS\UI\Factory
+     */
+    protected \ILIAS\UI\Factory $ui_factory;
+    /**
+     * @var \ILIAS\UI\Renderer
+     */
+    protected \ILIAS\UI\Renderer $ui_renderer;
+    /**
      * @var bool
      */
     protected $has_any_certs = false;
@@ -90,6 +98,8 @@ class srCertificateTableGUI extends ilTable2GUI
         $this->pl = ilCertificatePlugin::getInstance();
         $this->ctrl = $DIC->ctrl();
         $this->user = $DIC->user();
+        $this->ui_factory = $DIC->ui()->factory();
+        $this->ui_renderer = $DIC->ui()->renderer();
         $this->setShowRowsSelector(true);
 
         parent::__construct($a_parent_obj, $a_parent_cmd, "");
@@ -219,24 +229,10 @@ class srCertificateTableGUI extends ilTable2GUI
         }
         // Actions
         if (count($this->getOption('actions'))) {
-            if ($this->hasAction($a_set)) {
-                $this->ctrl->setParameterByClass(get_class($this->parent_obj), 'cert_id', $a_set['id']);
-                $this->ctrl->setParameterByClass(get_class($this->parent_obj), 'status', $a_set['status']);
-                $async_url = $this->ctrl->getLinkTargetByClass(array(
-                    ilUIPluginRouterGUI::class,
-                    get_class($this->parent_obj)
-                ), srCertificateGUI::CMD_BUILD_ACTIONS, '', true);
-                $actions = new ilAdvancedSelectionListGUI();
-                $actions->setId('action_list_' . $a_set['id']);
-                $actions->setAsynchUrl($async_url);
-                $actions->setAsynch(true);
-                $actions->setListTitle($this->pl->txt('actions'));
-            } else {
-                $actions = '&nbsp;';
-            }
+            $actions = $this->buildActionsDropdown($a_set);
 
             $this->tpl->setCurrentBlock('ACTIONS');
-            $this->tpl->setVariable('ACTIONS', is_string($actions) ? $actions : $actions->getHTML());
+            $this->tpl->setVariable('ACTIONS', $actions);
             $this->tpl->parseCurrentBlock();
         }
     }
@@ -249,6 +245,84 @@ class srCertificateTableGUI extends ilTable2GUI
     {
         return !in_array($a_set['status'],
             array(srCertificate::STATUS_DRAFT, srCertificate::STATUS_NEW, srCertificate::STATUS_WORKING));
+    }
+
+    /**
+     * @param array $a_set
+     */
+    protected function buildActionsDropdown(array $a_set): string
+    {
+        if (!$this->hasAction($a_set)) {
+            return '&nbsp;';
+        }
+
+        $parent_class = get_class($this->parent_obj);
+        $this->ctrl->setParameterByClass($parent_class, 'cert_id', $a_set['id']);
+        $this->ctrl->setParameterByClass($parent_class, 'status', $a_set['status']);
+
+        $buttons = [];
+        switch ($parent_class) {
+            case srCertificateAdministrationGUI::class:
+            case srCertificateDefinitionGUI::class:
+                $undo_cmd = ($parent_class === srCertificateAdministrationGUI::class)
+                    ? srCertificateAdministrationGUI::CMD_UNDO_CALL_BACK
+                    : srCertificateDefinitionGUI::CMD_UNDO_CALL_BACK;
+                $retry_cmd = ($parent_class === srCertificateAdministrationGUI::class)
+                    ? srCertificateAdministrationGUI::CMD_RETRY_GENERATION
+                    : srCertificateDefinitionGUI::CMD_RETRY_GENERATION;
+                $call_back_cmd = ($parent_class === srCertificateAdministrationGUI::class)
+                    ? srCertificateAdministrationGUI::CMD_CALL_BACK
+                    : srCertificateDefinitionGUI::CMD_CALL_BACK;
+                switch ($a_set['status']) {
+                    case srCertificate::STATUS_CALLED_BACK:
+                        $buttons[] = $this->ui_factory->button()->shy(
+                            $this->pl->txt('undo_callback'),
+                            $this->ctrl->getLinkTarget($this->parent_obj, $undo_cmd)
+                        );
+                        break;
+                    case srCertificate::STATUS_FAILED:
+                        $buttons[] = $this->ui_factory->button()->shy(
+                            $this->pl->txt('retry'),
+                            $this->ctrl->getLinkTarget($this->parent_obj, $retry_cmd)
+                        );
+                        break;
+                    case srCertificate::STATUS_PROCESSED:
+                        $buttons[] = $this->ui_factory->button()->shy(
+                            $this->pl->txt('download'),
+                            $this->ctrl->getLinkTarget($this->parent_obj, srCertificateGUI::CMD_DOWNLOAD_CERTIFICATE)
+                        );
+                        $buttons[] = $this->ui_factory->button()->shy(
+                            $this->pl->txt('call_back'),
+                            $this->ctrl->getLinkTarget($this->parent_obj, $call_back_cmd)
+                        );
+                        break;
+                }
+                break;
+            case srCertificateUserGUI::class:
+                if ($a_set['status'] == srCertificate::STATUS_PROCESSED) {
+                    $buttons[] = $this->ui_factory->button()->shy(
+                        $this->pl->txt('download'),
+                        $this->ctrl->getLinkTarget($this->parent_obj, srCertificateGUI::CMD_DOWNLOAD_CERTIFICATE)
+                    );
+                }
+                break;
+            default:
+                $buttons[] = $this->ui_factory->button()->shy(
+                    $this->pl->txt('download'),
+                    $this->ctrl->getLinkTarget($this->parent_obj, srCertificateGUI::CMD_DOWNLOAD_CERTIFICATE)
+                );
+                break;
+        }
+
+        if (empty($buttons)) {
+            return '&nbsp;';
+        }
+
+        $dropdown = $this->ui_factory->dropdown()
+            ->standard($buttons)
+            ->withLabel($this->pl->txt('actions'));
+
+        return $this->ui_renderer->render($dropdown);
     }
 
     /**

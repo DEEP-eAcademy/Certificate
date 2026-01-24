@@ -18,6 +18,10 @@ class srCertParticipationCertificateFormGUI extends PropertyFormGUI
      * @var srCertParticipationCertificate
      */
     protected $srCertParticipationCertificate;
+    /**
+     * @var bool
+     */
+    protected bool $isNew = false;
 
     /**
      * srCertParticipationCertificateFormGUI constructor.
@@ -27,6 +31,9 @@ class srCertParticipationCertificateFormGUI extends PropertyFormGUI
      */
     public function __construct($parent, $srCertificateDefinition)
     {
+        $this->isNew = !srCertParticipationCertificate::where([
+            'definition_id' => $srCertificateDefinition->getId()
+        ])->hasSets();
         $this->srCertParticipationCertificate = srCertParticipationCertificate::findOrGetInstance($srCertificateDefinition->getId());
         parent::__construct($parent);
         self::dic()->mainTemplate()->addJavaScript(self::plugin()->directory() . '/templates/js/participation_certificate_form.js');

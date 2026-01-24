@@ -21,6 +21,14 @@ class srCertificateTypeSettingsTableGUI extends ilTable2GUI
      */
     protected $type;
     /**
+     * @var \ILIAS\UI\Factory
+     */
+    protected \ILIAS\UI\Factory $ui_factory;
+    /**
+     * @var \ILIAS\UI\Renderer
+     */
+    protected \ILIAS\UI\Renderer $ui_renderer;
+    /**
      * @var array
      */
     protected $columns = array(
@@ -43,6 +51,8 @@ class srCertificateTypeSettingsTableGUI extends ilTable2GUI
         $this->pl = ilCertificatePlugin::getInstance();
         $this->ctrl = $DIC->ctrl();
         $this->toolbar = $DIC->toolbar();
+        $this->ui_factory = $DIC->ui()->factory();
+        $this->ui_renderer = $DIC->ui()->renderer();
         $this->setRowTemplate('tpl.type_settings_row.html', $this->pl->getDirectory());
         $this->initColumns();
         $this->addColumn($this->pl->txt('actions'));
@@ -59,26 +69,29 @@ class srCertificateTypeSettingsTableGUI extends ilTable2GUI
         $this->tpl->setVariable('SETTING', $a_set['setting']);
         $this->tpl->setVariable('EDITABLE_IN', $a_set['editable_in']);
         $this->tpl->setVariable('DEFAULT_VALUE', $a_set['default_value']);
-        $this->tpl->setVariable('ACTIONS', $this->buildActionMenu($a_set)->getHTML());
+        $this->tpl->setVariable('ACTIONS', $this->ui_renderer->render($this->buildActionMenu($a_set)));
     }
 
     /**
      * Build action menu
      * @param array $a_set
-     * @return ilAdvancedSelectionListGUI
+     * @return \ILIAS\UI\Component\Dropdown\Standard
      */
     protected function buildActionMenu(array $a_set)
     {
-        $list = new ilAdvancedSelectionListGUI();
-        $list->setId($a_set['identifier']);
-        $list->setListTitle($this->pl->txt('actions'));
         $this->ctrl->setParameterByClass(srCertificateTypeGUI::class, 'type_id', $this->type->getId());
         $this->ctrl->setParameterByClass(srCertificateTypeGUI::class, 'identifier', $a_set['identifier']);
-        $list->addItem($this->pl->txt('edit'), 'edit',
-            $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class, srCertificateTypeGUI::CMD_EDIT_SETTING));
+        $buttons = [
+            $this->ui_factory->button()->shy(
+                $this->pl->txt('edit'),
+                $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class, srCertificateTypeGUI::CMD_EDIT_SETTING)
+            ),
+        ];
         $this->ctrl->clearParametersByClass(srCertificateTypeGUI::class);
 
-        return $list;
+        return $this->ui_factory->dropdown()
+            ->standard($buttons)
+            ->withLabel($this->pl->txt('actions'));
     }
 
     /**

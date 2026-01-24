@@ -21,6 +21,14 @@ class srCertificateTypePlaceholdersTableGUI extends ilTable2GUI
      */
     protected $type;
     /**
+     * @var \ILIAS\UI\Factory
+     */
+    protected \ILIAS\UI\Factory $ui_factory;
+    /**
+     * @var \ILIAS\UI\Renderer
+     */
+    protected \ILIAS\UI\Renderer $ui_renderer;
+    /**
      * @var array
      */
     protected $columns = array(
@@ -44,6 +52,8 @@ class srCertificateTypePlaceholdersTableGUI extends ilTable2GUI
         $this->pl = ilCertificatePlugin::getInstance();
         $this->ctrl = $DIC->ctrl();
         $this->toolbar = $DIC->toolbar();
+        $this->ui_factory = $DIC->ui()->factory();
+        $this->ui_renderer = $DIC->ui()->renderer();
         $this->setRowTemplate('tpl.type_placeholders_row.html', $this->pl->getDirectory());
         $this->initColumns();
         $this->addColumn($this->pl->txt('actions'));
@@ -71,28 +81,32 @@ class srCertificateTypePlaceholdersTableGUI extends ilTable2GUI
             $this->tpl->setVariable('TD_VALUE', $v);
             $this->tpl->parseCurrentBlock();
         }
-        $this->tpl->setVariable('ACTIONS', $this->buildActionMenu($a_set)->getHTML());
+        $this->tpl->setVariable('ACTIONS', $this->ui_renderer->render($this->buildActionMenu($a_set)));
     }
 
     /**
      * Build action menu
      * @param array $a_set
-     * @return ilAdvancedSelectionListGUI
+     * @return \ILIAS\UI\Component\Dropdown\Standard
      */
     protected function buildActionMenu(array $a_set)
     {
-        $list = new ilAdvancedSelectionListGUI();
-        $list->setId($a_set['identifier']);
-        $list->setListTitle($this->pl->txt('actions'));
         $this->ctrl->setParameterByClass(srCertificateTypeGUI::class, 'type_id', $this->type->getId());
         $this->ctrl->setParameterByClass(srCertificateTypeGUI::class, 'placeholder_id', $a_set['id']);
-        $list->addItem($this->pl->txt('edit'), 'edit',
-            $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class, srCertificateTypeGUI::CMD_EDIT_PLACEHOLDER));
-        $list->addItem($this->pl->txt('delete'), 'delete',
-            $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class,
-                srCertificateTypeGUI::CMD_CONFIRM_DELETE_PLACEHOLDER));
+        $buttons = [
+            $this->ui_factory->button()->shy(
+                $this->pl->txt('edit'),
+                $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class, srCertificateTypeGUI::CMD_EDIT_PLACEHOLDER)
+            ),
+            $this->ui_factory->button()->shy(
+                $this->pl->txt('delete'),
+                $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class, srCertificateTypeGUI::CMD_CONFIRM_DELETE_PLACEHOLDER)
+            ),
+        ];
 
-        return $list;
+        return $this->ui_factory->dropdown()
+            ->standard($buttons)
+            ->withLabel($this->pl->txt('actions'));
     }
 
     /**

@@ -13,10 +13,6 @@ class srCertificateTypeSettingFormGUI extends ilPropertyFormGUI
      */
     protected $type;
     /**
-     * @var ilTemplate
-     */
-    protected ilTemplate $tpl;
-    /**
      * @var ilCertificatePlugin
      */
     protected $pl;
@@ -59,7 +55,6 @@ class srCertificateTypeSettingFormGUI extends ilPropertyFormGUI
         $this->identifier = $identifier;
         $this->checkIdentifier();
         $this->setting = $this->type->getSettingByIdentifier($this->identifier);
-        $this->tpl = $DIC->ui()->mainTemplate();
         $this->ctrl = $DIC->ctrl();
         $this->rbac = $DIC->rbac()->review();
         $this->pl = ilCertificatePlugin::getInstance();

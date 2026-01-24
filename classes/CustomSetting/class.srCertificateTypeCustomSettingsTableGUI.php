@@ -21,6 +21,14 @@ class srCertificateTypeCustomSettingsTableGUI extends ilTable2GUI
      */
     protected ilCtrl $ctrl;
     /**
+     * @var \ILIAS\UI\Factory
+     */
+    protected \ILIAS\UI\Factory $ui_factory;
+    /**
+     * @var \ILIAS\UI\Renderer
+     */
+    protected \ILIAS\UI\Renderer $ui_renderer;
+    /**
      * @var array
      */
     protected $columns = array(
@@ -44,6 +52,8 @@ class srCertificateTypeCustomSettingsTableGUI extends ilTable2GUI
         parent::__construct($a_parent_obj, $a_parent_cmd);
         $this->pl = ilCertificatePlugin::getInstance();
         $this->ctrl = $DIC->ctrl();
+        $this->ui_factory = $DIC->ui()->factory();
+        $this->ui_renderer = $DIC->ui()->renderer();
         $this->setRowTemplate('tpl.type_custom_settings_row.html', $this->pl->getDirectory());
         $this->initColumns();
         $this->addColumn($this->pl->txt('actions'));
@@ -61,29 +71,33 @@ class srCertificateTypeCustomSettingsTableGUI extends ilTable2GUI
         $this->tpl->setVariable('EDITABLE_IN', $a_set['editable_in']);
         $this->tpl->setVariable('SETTING_TYPE', $a_set['setting_type']);
         $this->tpl->setVariable('DEFAULT_VALUE', $a_set['default_value']);
-        $this->tpl->setVariable('ACTIONS', $this->buildActionMenu($a_set)->getHTML());
+        $this->tpl->setVariable('ACTIONS', $this->ui_renderer->render($this->buildActionMenu($a_set)));
     }
 
     /**
      * Build action menu
      * @param array $a_set
-     * @return ilAdvancedSelectionListGUI
+     * @return \ILIAS\UI\Component\Dropdown\Standard
      */
     protected function buildActionMenu(array $a_set)
     {
-        $list = new ilAdvancedSelectionListGUI();
-        $list->setId($a_set['id']);
-        $list->setListTitle($this->pl->txt('actions'));
         $this->ctrl->setParameterByClass(srCertificateTypeGUI::class, 'type_id', $this->type->getId());
         $this->ctrl->setParameterByClass(srCertificateTypeGUI::class, 'custom_setting_id', $a_set['id']);
-        $list->addItem($this->pl->txt('edit'), 'edit', $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class,
-            srCertificateTypeGUI::CMD_EDIT_CUSTOM_SETTING));
-        $list->addItem($this->pl->txt('delete'), 'delete',
-            $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class,
-                srCertificateTypeGUI::CMD_CONFIRM_DELETE_CUSTOM_SETTING));
+        $buttons = [
+            $this->ui_factory->button()->shy(
+                $this->pl->txt('edit'),
+                $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class, srCertificateTypeGUI::CMD_EDIT_CUSTOM_SETTING)
+            ),
+            $this->ui_factory->button()->shy(
+                $this->pl->txt('delete'),
+                $this->ctrl->getLinkTargetByClass(srCertificateTypeGUI::class, srCertificateTypeGUI::CMD_CONFIRM_DELETE_CUSTOM_SETTING)
+            ),
+        ];
         $this->ctrl->clearParametersByClass(srCertificateTypeGUI::class);
 
-        return $list;
+        return $this->ui_factory->dropdown()
+            ->standard($buttons)
+            ->withLabel($this->pl->txt('actions'));
     }
 
     /**
