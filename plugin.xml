@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin id="cert">
 	<events>
+		<event id="components/ILIAS/Course" type="listen" />
 		<event id="Modules/Course" type="listen" />
 		<event id="Certificate/srCertificate" type="listen" />
 		<event id="create" type="raise" />

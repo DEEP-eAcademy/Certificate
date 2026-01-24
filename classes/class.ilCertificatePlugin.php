@@ -238,6 +238,7 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin implements ilCronJob
     public function handleEvent($component, $event, $parameters) {
         // Generate certificate if course is completed
         switch ($component) {
+            case 'components/ILIAS/Course':
             case 'Modules/Course':
                 $course = NULL;
                 if (isset($parameters['object']) && $parameters['object'] instanceof ilObjCourse) {
