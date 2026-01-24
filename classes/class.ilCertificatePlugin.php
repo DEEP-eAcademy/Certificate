@@ -14,7 +14,7 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin implements ilCronJob
 {
     use DICTrait;
 
-    const CTYPE = "Services";
+    const CTYPE = ilComponentInfo::TYPE_COMPONENT;
     /** @var string */
     const CNAME = "UIComponent";
     /** @var string */

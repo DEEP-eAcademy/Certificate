@@ -37,7 +37,7 @@ $base_url = rtrim(ILIAS_HTTP_PATH, '/');
 
 // Strip plugin path, keep ILIAS root
 // ILIAS_HTTP_PATH example:
-// https://example.com/ilias/Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/classes/
+// https://example.com/Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/classes/
 $ilias_root = preg_replace('~/Customizing/.*$~', '', $base_url);
 
 // Build redirect parameters

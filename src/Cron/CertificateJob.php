@@ -1,6 +1,7 @@
 <?php
-
 namespace srag\Plugins\Certificate\Cron;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use ilCertificatePlugin;
 use ilCronJob;

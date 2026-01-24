@@ -15,14 +15,14 @@ The certificate plugin offers an enhanced support for creating and administratin
 * Rendering PDF certificates with the integraded PDF Service in ILIAS (>= 4.4) or with JasperReports
 
 ### Requirements
-* ILIAS 9
+* ILIAS 10
 * PHP 8.2+
 
 ## Installation
 Start at your ILIAS root directory
 ```bash
-mkdir -p Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
-cd Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
+mkdir -p public/Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
+cd public/Customizing/global/plugins/Services/UIComponent/UserInterfaceHook
 git clone https://github.com/DEEP-eAcademy/Certificate.git Certificate
 ```
 Update and activate the plugin in the ILIAS Plugin Administration
@@ -38,7 +38,7 @@ An installation and user guide is available in [the doc/Documentation.pdf](/doc/
 If custom fonts are needed you can insert them inside directory below:
 
 ```
-Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/vendor/rdpascua/jasperstarter/jdbc/
+public/Customizing/global/plugins/components/ILIAS/UIComponent/UserInterfaceHook/Certificate/vendor/rdpascua/jasperstarter/jdbc/
 ```
 
 They need to have _.jar_ extension, you can generate them inside Jasper Studio.
@@ -60,7 +60,7 @@ javax.imageio.ImageIO.read(new java.io.ByteArrayInputStream(Base64.getDecoder().
 Change the PHP code of the class responsible for displaing validation message
 
 ```
-Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/Certificate/classes/checkCertificate.php
+Customizing/global/plugins/components/ILIAS/UIComponent/UserInterfaceHook/Certificate/classes/checkCertificate.php
 ```
 
 ## Known bugs
