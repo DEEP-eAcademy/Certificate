@@ -200,7 +200,7 @@ class ilCertificatePlugin extends ilUserInterfaceHookPlugin implements ilCronJob
      */
     public static function getPluginIconImage()
     {
-        return ilUtil::getImagePath('icon_cert.svg');
+        return ilUtil::getImagePath('standard/icon_cert.svg');
     }
 
     /**
