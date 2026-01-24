@@ -7,11 +7,17 @@
  */
 declare(strict_types=1);
 
+$ilias_root = realpath(__DIR__ . '/../../../../../../../../..');
+if ($ilias_root === false) {
+    http_response_code(500);
+    exit('ILIAS root not found');
+}
 
-chdir('../../../../../../../../'); 
-include_once "Services/Context/classes/class.ilContext.php"; 
-ilContext::init(ilContext::CONTEXT_WEB); 
-require_once("Services/Init/classes/class.ilInitialisation.php"); 
+chdir($ilias_root);
+require_once $ilias_root . "/vendor/composer/vendor/autoload.php";
+include_once $ilias_root . "/components/ILIAS/Context/classes/class.ilContext.php";
+ilContext::init(ilContext::CONTEXT_WEB);
+require_once $ilias_root . "/components/ILIAS/Init/classes/class.ilInitialisation.php";
 ilInitialisation::initILIAS();
 
 
